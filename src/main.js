@@ -32,18 +32,26 @@ function initMobileMenu() {
   const openDrawer = () => {
     drawer.classList.add('open');
     overlay.classList.add('open');
+    toggleBtn.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   };
 
   const closeDrawer = () => {
     drawer.classList.remove('open');
     overlay.classList.remove('open');
+    toggleBtn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   };
 
   toggleBtn.addEventListener('click', openDrawer);
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   overlay.addEventListener('click', closeDrawer);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      closeDrawer();
+    }
+  });
 
   // Close drawer on link click
   const drawerLinks = drawer.querySelectorAll('a');
