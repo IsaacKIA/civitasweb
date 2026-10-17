@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Enquiries — Tell Us What Your Property Needs | Civitas</title>
+  <meta name="description" content="Request a service quotation, enquire about recurring care plans, or apply to work with Civitas Estate & Maintenance in Accra & Tema, Ghana.">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+
+  <!-- Pre-Launch Notice Ribbon -->
+  <div class="pre-launch-bar">
+    <span class="tag">Pre-Launch Notice</span>
+    <span>Civitas is preparing for commercial operations in <strong>January 2027</strong>. In advance of launch, you can <a href="/contact/">register your interest</a> or reserve early bookings.</span>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo-wrapper">
+        <img src="/assets/logos/Civitas_Official_Logo_Original.png" alt="Civitas Logo" class="logo-image" width="180" height="58">
+      </a>
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="/about/" class="nav-link">About Civitas</a></li>
+          <li class="nav-item nav-dropdown">
+            <a href="/services/" class="nav-link">
+              Our Services
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a href="/services/civitas-fix/"><span class="item-title">Civitas Fix</span><span class="item-desc">Cleaning, repairs & maintenance</span></a></li>
+              <li class="dropdown-item"><a href="/services/civitas-care/"><span class="item-title">Civitas Care</span><span class="item-desc">Structured preventive care plans</span></a></li>
+              <li class="dropdown-item"><a href="/services/property-watch/"><span class="item-title">Civitas Property Watch</span><span class="item-desc">Condition inspections & oversight</span></a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a href="/how-it-works/" class="nav-link">How It Works</a></li>
+          <li class="nav-item"><a href="/service-areas/" class="nav-link">Service Areas</a></li>
+          <li class="nav-item"><a href="/insights/" class="nav-link">Insights</a></li>
+          <li class="nav-item"><a href="/contact/" class="nav-link active">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-primary btn-sm header-cta" data-open-quote>Request a Quote</button>
+        <button class="mobile-toggle" aria-label="Toggle menu">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay"></div>
+  <aside class="mobile-drawer">
+    <div class="drawer-header">
+      <img src="/assets/logos/Civitas_Official_Logo_Original.png" alt="Civitas Logo" style="height: 48px;">
+      <button class="drawer-close">&times;</button>
+    </div>
+    <ul class="mobile-nav-list">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about/">About Civitas</a></li>
+      <li><a href="/services/">Our Services</a></li>
+      <li><a href="/how-it-works/">How It Works</a></li>
+      <li><a href="/service-areas/">Service Areas</a></li>
+      <li><a href="/insights/">Insights Journal</a></li>
+      <li><a href="/contact/">Contact & Enquiries</a></li>
+    </ul>
+    <div style="margin-top: 2rem;">
+      <button class="btn btn-primary btn-lg" style="width: 100%;" data-open-quote>Request a Quote</button>
+    </div>
+  </aside>
+
+  <main>
+    <!-- Contact Hero -->
+    <section class="section bg-ivory">
+      <div class="container text-center" style="max-width: 820px;">
+        <span class="eyebrow eyebrow-terracotta">Start With a Simple Enquiry</span>
+        <h1>Tell Us What Your Property Needs.</h1>
+        <p class="lead" style="margin-top: 1.25rem;">
+          Whether you need cleaning, maintenance, a property inspection or a recurring care plan, share your requirements and let us help you understand the next steps.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Contact & Form Section -->
+    <section class="section bg-white">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(2rem, 5vw, 4rem); align-items: flex-start;">
+          
+          <!-- Smart Multi-Service Enquiry Form -->
+          <div class="form-card">
+            <span class="eyebrow eyebrow-emerald">Direct Lead Intake</span>
+            <h2 style="font-size: 1.85rem; margin-bottom: 0.5rem;">Request a Service Quotation</h2>
+            <p class="muted" style="font-size: 0.9rem; margin-bottom: 2rem;">
+              Provide your property details below. After submitting, your enquiry will be formatted and opened directly in WhatsApp to continue the conversation with our team.
+            </p>
+
+            <form id="contactEnquiryForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="contactName">Your Full Name</label>
+                  <input type="text" id="contactName" name="name" class="form-input" placeholder="e.g. Ama Osei" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contactPhone">Phone / WhatsApp Number</label>
+                  <input type="tel" id="contactPhone" name="phone" class="form-input" placeholder="e.g. +233 55 123 4567" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="contactLocation">Property Location</label>
+                  <input type="text" id="contactLocation" name="location" class="form-input" placeholder="e.g. East Legon, Spintex, Community 25" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contactPropertyType">Property Type</label>
+                  <select id="contactPropertyType" name="propertyType" class="form-select">
+                    <option value="Residential Apartment / Flat">Apartment / Flat</option>
+                    <option value="Standalone House / Villa">Standalone House</option>
+                    <option value="Rental Property">Rental Property (Between Tenants)</option>
+                    <option value="Short-Let / Airbnb Property">Short-Let / Airbnb</option>
+                    <option value="Commercial Office / Shop">Commercial Office / Shop</option>
+                    <option value="Vacant / Unoccupied Property">Vacant Property</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="contactService">Service Required</label>
+                  <select id="contactService" name="service" class="form-select" required>
+                    <optgroup label="Civitas Fix - Cleaning">
+                      <option value="Routine Residential Cleaning">Routine Residential Cleaning</option>
+                      <option value="Deep Cleaning">Deep Cleaning</option>
+                      <option value="Move-In & Move-Out Cleaning">Move-In / Move-Out Cleaning</option>
+                      <option value="Upholstery Cleaning">Upholstery Cleaning</option>
+                      <option value="Pressure Washing">Pressure Washing</option>
+                      <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
+                    </optgroup>
+                    <optgroup label="Civitas Fix - Repairs & Handyman">
+                      <option value="Plumbing Repairs">Plumbing Repairs</option>
+                      <option value="Electrical Repairs">Electrical Repairs</option>
+                      <option value="Doors, Locks & Fittings">Doors, Locks & Hardware</option>
+                      <option value="Painting & Touch-Ups">Painting & Touch-Ups</option>
+                      <option value="Air Conditioning Servicing">AC Servicing</option>
+                      <option value="General Handyman Tasks">General Handyman Tasks</option>
+                    </optgroup>
+                    <optgroup label="Civitas Care & Property Watch">
+                      <option value="Civitas Care Plan">Civitas Care Plan (Monthly Preventive)</option>
+                      <option value="Civitas Property Watch">Civitas Property Watch (Inspection)</option>
+                    </optgroup>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contactDate">Preferred Service Date</label>
+                  <input type="date" id="contactDate" name="preferredDate" class="form-input">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contactDescription">Brief Description of Work</label>
+                <textarea id="contactDescription" name="description" class="form-textarea" rows="4" placeholder="Share specific details, number of rooms, symptoms of the fault, or specific inspection areas..."></textarea>
+                <p class="form-help">You may share relevant photos directly in WhatsApp once the chat opens.</p>
+              </div>
+
+              <button type="submit" class="btn btn-whatsapp btn-lg" style="width: 100%;">
+                Continue on WhatsApp
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+
+              <p class="form-help" style="text-align: center; margin-top: 1rem;">
+                *Sending an enquiry does not create a confirmed booking. All services are subject to availability, scope approval and agreed terms.*
+              </p>
+            </form>
+          </div>
+
+          <!-- Contact Information & Working With Civitas -->
+          <div>
+            <!-- Direct Details Card -->
+            <div class="card" style="margin-bottom: 2rem; overflow: hidden; padding: 0;">
+              <div style="position: relative; height: 180px; overflow: hidden;">
+                <img src="/assets/Images/female%20solar%20officer.png" alt="Civitas Field Operations Support Team" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
+                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,37,31,0.1) 0%, rgba(4,37,31,0.85) 100%); display: flex; align-items: flex-end; padding: 1.25rem;">
+                  <div>
+                    <span style="background: rgba(37,211,102,0.9); color: #04251F; padding: 0.25rem 0.65rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: 0.25rem;">
+                      <span style="width: 6px; height: 6px; background: #04251F; border-radius: 50%;"></span> Active Dispatch Hub
+                    </span>
+                    <h4 style="color: #fff; margin: 0; font-size: 1.15rem; font-family: var(--font-display);">Direct Property Enquiries Desk</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding: 1.5rem;">
+                <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.85rem; background: rgba(7,85,69,0.06); border-radius: 8px; margin-bottom: 1.25rem; font-size: 0.82rem;">
+                  <span style="color: var(--civitas-emerald); font-weight: 600;">⚡ Average Response Time:</span>
+                  <span style="font-weight: 700; color: var(--civitas-emerald);">&lt; 15 Minutes (Mon–Sat)</span>
+                </div>
+                
+                <div class="footer-contact-item" style="color: var(--civitas-text);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span><strong>Location:</strong> Accra &amp; Tema, Greater Accra Region, Ghana</span>
+                </div>
+
+                <div class="footer-contact-item" style="color: var(--civitas-text); margin-top: 1rem;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <span><strong>WhatsApp / Direct:</strong> +233 (0) 55 000 0000</span>
+                </div>
+
+                <div class="footer-contact-item" style="color: var(--civitas-text); margin-top: 1rem;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  <span><strong>Email:</strong> enquiries@civitasestate.com</span>
+                </div>
+
+                <div class="footer-contact-item" style="color: var(--civitas-text); margin-top: 1rem;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span><strong>Operating Hours:</strong> Monday – Saturday: 8:00 AM – 6:00 PM GMT</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Working With Civitas (Careers / Trade Specialist Intake) -->
+            <div class="card" id="careers" style="background-color: var(--civitas-sage); border-color: #BDD1C6;">
+              <span class="eyebrow eyebrow-emerald">Technician & Vendor Intake</span>
+              <h3 style="font-size: 1.35rem; margin-bottom: 0.5rem;">Working With Civitas</h3>
+              <p class="muted" style="font-size: 0.88rem; margin-bottom: 1.25rem;">
+                Are you a qualified cleaning professional, licensed electrician, plumber, AC technician, or painter interested in future service assignments in Accra & Tema?
+              </p>
+
+              <form id="talentOnboardingForm">
+                <div class="form-group">
+                  <label class="form-label" for="talentName">Full Name</label>
+                  <input type="text" id="talentName" name="name" class="form-input" placeholder="Your name" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="talentTrade">Trade / Specialty</label>
+                  <select id="talentTrade" name="trade" class="form-select" required>
+                    <option value="Certified Electrician">Certified Electrician</option>
+                    <option value="Licensed Plumber">Licensed Plumber</option>
+                    <option value="AC Servicing Technician">Air Conditioning Technician</option>
+                    <option value="Professional Painter">Professional Painter</option>
+                    <option value="Experienced Cleaning Professional">Cleaning Specialist</option>
+                    <option value="General Handyman">General Handyman</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="talentExperience">Years of Experience & Qualifications</label>
+                  <input type="text" id="talentExperience" name="experience" class="form-input" placeholder="e.g. 6 years, NVTI / City & Guilds" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="talentArea">Area of Availability</label>
+                  <input type="text" id="talentArea" name="area" class="form-input" placeholder="e.g. East Legon, Spintex, Tema" required>
+                </div>
+
+                <button type="submit" class="btn btn-secondary btn-sm" style="width: 100%;">Submit Trade Application</button>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-col footer-brand">
+          <img src="/assets/logos/Civitas_Official_Logo_Original.png" alt="Civitas Logo" class="footer-logo">
+          <p>Civitas Estate & Maintenance — Smart Living. Sustainable Legacy.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Divisions</h4>
+          <ul class="footer-links">
+            <li><a href="/services/civitas-fix/">Civitas Fix</a></li>
+            <li><a href="/services/civitas-care/">Civitas Care</a></li>
+            <li><a href="/services/property-watch/">Civitas Property Watch</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/how-it-works/">How It Works</a></li>
+            <li><a href="/service-areas/">Service Areas</a></li>
+            <li><a href="/insights/">Insights Journal</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p style="font-size: 0.9rem; color: #B5C9C0;">Accra & Tema, Ghana<br>WhatsApp: +233 (0) 55 000 0000<br>enquiries@civitasestate.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Civitas Estate & Maintenance. All rights reserved.</p>
+        <div class="footer-legal-links">
+          <a href="/privacy/">Privacy Policy</a>
+          <a href="/terms/">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  <!-- Video Lightbox Modal -->
+  <div class="video-modal-overlay" id="videoModal">
+    <div class="video-modal-card">
+      <div class="video-modal-header">
+        <h4 id="videoModalTitle">Civitas Operations Showcase</h4>
+        <button class="video-modal-close" id="videoModalClose" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="video-modal-body">
+        <video id="modalVideoPlayer" controls playsinline preload="metadata">
+          <source src="" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Mobile Action HUD -->
+  <div class="mobile-sticky-hud">
+    <a href="https://wa.me/233550000000?text=Hello%20Civitas,%20I%20have%20an%20enquiry%20regarding%20property%20care%20services." target="_blank" rel="noopener noreferrer" class="hud-btn hud-btn-whatsapp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      <span>Chat on WhatsApp</span>
+    </a>
+    <button class="hud-btn hud-btn-quote" data-open-quote>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+      <span>Instant Quote</span>
+    </button>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
