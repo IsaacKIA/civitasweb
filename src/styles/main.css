@@ -385,11 +385,12 @@ img, video {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.5rem 0.75rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   z-index: 101;
   text-align: center;
+  line-height: 1.45;
 }
 
 .pre-launch-bar .tag {
@@ -397,10 +398,14 @@ img, video {
   color: #FFFFFF;
   font-weight: 700;
   font-size: 0.7rem;
-  padding: 0.15rem 0.55rem;
+  padding: 0.2rem 0.65rem;
   border-radius: var(--radius-pill);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-block;
+  line-height: 1.3;
 }
 
 .pre-launch-bar a {
@@ -583,14 +588,16 @@ img, video {
   width: 85%;
   max-width: 360px;
   height: 100vh;
+  height: 100dvh;
   background-color: var(--civitas-white);
-  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  box-shadow: -15px 0 40px rgba(0, 0, 0, 0.25);
+  z-index: 1200;
   display: flex;
   flex-direction: column;
-  padding: 2rem 1.5rem;
+  padding: 2rem 1.5rem calc(6.5rem + env(safe-area-inset-bottom, 0px));
   transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobile-drawer.open {
@@ -609,9 +616,20 @@ img, video {
 .drawer-close {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.85rem;
   color: var(--civitas-forest);
   cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.drawer-close:hover {
+  background: var(--civitas-sage);
 }
 
 .mobile-nav-list {
@@ -650,7 +668,7 @@ img, video {
   inset: 0;
   background-color: rgba(4, 61, 51, 0.4);
   backdrop-filter: blur(4px);
-  z-index: 999;
+  z-index: 1150;
   opacity: 0;
   visibility: hidden;
   transition: all var(--transition-fast);
@@ -3167,7 +3185,7 @@ img, video {
 
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(2.75rem, 5.5vw, 4.5rem);
+  font-size: clamp(2.1rem, 5.5vw, 4.5rem);
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.02em;
@@ -3465,8 +3483,9 @@ img, video {
 }
 
 .ba-image-after-wrap .ba-image {
-  width: 980px;
+  width: 100%;
   max-width: none;
+  min-width: 100%;
 }
 
 .ba-badge {
@@ -3696,6 +3715,117 @@ img, video {
 .trust-ribbon-text span {
   font-size: 0.78rem;
   color: var(--civitas-text-muted);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS & TOUCH REFINEMENT (< 768px and < 480px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hero-headline {
+    font-size: clamp(1.85rem, 7.5vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-stats-hud {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.25rem 0.85rem;
+    padding: 1.25rem 1rem;
+    margin-top: 2rem;
+  }
+
+  .hero-stat-item:not(:last-child) {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .hero-stat-item:nth-child(odd) {
+    border-right: 1px solid rgba(212, 175, 55, 0.18);
+    padding-right: 0.85rem;
+  }
+
+  .hero-stat-number {
+    font-size: 1.75rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.75rem;
+  }
+
+  .trust-ribbon-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.15rem;
+  }
+
+  .trust-ribbon-item {
+    gap: 0.85rem;
+  }
+
+  .radar-dashboard-card {
+    grid-template-columns: 1fr !important;
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+  }
+
+  .radar-spec-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .radar-spec-item {
+    padding: 0.75rem;
+  }
+
+  .radar-spec-value {
+    font-size: 0.98rem;
+  }
+
+  .before-after-wrapper {
+    height: clamp(260px, 60vw, 380px);
+  }
+
+  .sticky-mobile-hud {
+    display: block !important;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  body {
+    padding-bottom: calc(85px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .pre-launch-bar {
+    font-size: 0.78rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .radar-console-panel {
+    padding: 1.25rem 1rem;
+  }
+
+  .radar-spec-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .hero-showcase-box {
+    aspect-ratio: 16 / 10;
+  }
 }
 
 /* Accessibility & Preferences */

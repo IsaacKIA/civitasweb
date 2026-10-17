@@ -360,7 +360,14 @@ function initBeforeAfterSlider() {
 
   const afterWrap = slider.querySelector('.ba-image-after-wrap');
   const handle = slider.querySelector('.ba-slider-handle');
-  if (!afterWrap || !handle) return;
+  const afterImg = afterWrap.querySelector('.ba-image');
+  const updateSliderWidth = () => {
+    if (afterImg && slider) {
+      afterImg.style.width = `${slider.offsetWidth}px`;
+    }
+  };
+  updateSliderWidth();
+  window.addEventListener('resize', updateSliderWidth);
 
   let isDragging = false;
 
