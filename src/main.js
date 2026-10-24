@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHealthScoreAudit();
   initReportSimulator();
   initGlobalWhatsAppWidget();
+  initHolidayQuoteForm();
 });
 
 
@@ -810,6 +811,9 @@ function initGlobalWhatsAppWidget() {
         </div>
         <div class="civitas-wa-quick-options">
           <p class="civitas-wa-quick-title">Quick Select Your Request:</p>
+          <a href="${createWhatsAppUrl({ customMessage: 'Hello Civitas Estate & Maintenance! 🎄 I would like to claim your Christmas & December Homecoming Offer (Free 12-Point Electrical & AC Safety Audit with Deep Clean) for my property in Accra / Tema. Promo Code: XMAS-PREP26.' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip" style="background: #FFFDF0; border-color: #D4AF37; color: #7C1818; font-weight: 700;">
+            🎄 Christmas &amp; December Homecoming Offer
+          </a>
           <a href="${createWhatsAppUrl({ service: 'Move-in / Move-out Deep Cleaning', location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
             🧹 Deep Cleaning / Move-In Scrub
           </a>
@@ -875,4 +879,38 @@ function initGlobalWhatsAppWidget() {
     }
   });
 }
+
+/**
+ * 10. Christmas & December Homecoming Interactive Instant Quote Form
+ */
+function initHolidayQuoteForm() {
+  const form = document.getElementById('holidayQuoteForm');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const propertyType = form.querySelector('#holidayPropertyType')?.value || 'Residential Property';
+    const location = form.querySelector('#holidayLocation')?.value || 'Accra / Tema';
+    const packageChoice = form.querySelector('#holidayPackage')?.value || 'Christmas Holiday Prep Package';
+    const targetDate = form.querySelector('#holidayTargetDate')?.value || 'December 2026';
+    const clientName = form.querySelector('#holidayName')?.value || '';
+
+    const customMessage = `Hello Civitas Estate & Maintenance! 🎄
+
+I would like to claim the *Christmas & December Homecoming Property Care Offer*.
+
+*Promo Code:* XMAS-PREP26 (Free 12-Point Electrical & AC Safety Audit)
+*Property Type:* ${propertyType}
+*Location:* ${location}
+*Package Selected:* ${packageChoice}
+*Preferred Target Date:* ${targetDate}
+${clientName ? `*Name:* ${clientName}\n` : ''}
+Please confirm availability for my neighborhood and provide my instant quotation with the holiday perks included.`;
+
+    const waUrl = createWhatsAppUrl({ customMessage });
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+  });
+}
+
 
