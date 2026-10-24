@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAnimatedStatsCounter();
   initHealthScoreAudit();
   initReportSimulator();
+  initGlobalWhatsAppWidget();
 });
 
 
@@ -789,6 +790,102 @@ function initReportSimulator() {
       const activePane = container.querySelector(`.report-pane[data-pane="${target}"]`);
       if (activePane) activePane.classList.add('active');
     });
+  });
+}
+
+/**
+ * 9. Interactive Global VIP WhatsApp Concierge Widget
+ * Injects a sleek floating widget across all pages with pre-filled service triggers
+ */
+function initGlobalWhatsAppWidget() {
+  if (document.getElementById('civitasWhatsAppWidget')) return;
+
+  const widget = document.createElement('div');
+  widget.id = 'civitasWhatsAppWidget';
+  widget.className = 'civitas-wa-widget';
+  widget.innerHTML = `
+    <div class="civitas-wa-popup" id="civitasWaPopup" aria-hidden="true">
+      <div class="civitas-wa-popup-header">
+        <div class="civitas-wa-avatar-wrap">
+          <img src="/assets/logos/Civitas_Symbol_256.png" alt="Civitas Concierge" class="civitas-wa-avatar">
+          <span class="civitas-wa-status-dot"></span>
+        </div>
+        <div class="civitas-wa-header-info">
+          <h5>Civitas Client Concierge</h5>
+          <span>Online &bull; Accra &amp; Tema &bull; Typically replies under 15m</span>
+        </div>
+        <button class="civitas-wa-close-btn" id="civitasWaCloseBtn" aria-label="Close WhatsApp chat popup">&times;</button>
+      </div>
+      <div class="civitas-wa-popup-body">
+        <div class="civitas-wa-msg-bubble">
+          <p>Hello! Welcome to Civitas Estate & Maintenance. How can our technical team assist your property today?</p>
+          <span class="civitas-wa-timestamp">Just now</span>
+        </div>
+        <div class="civitas-wa-quick-options">
+          <p class="civitas-wa-quick-title">Quick Select Your Request:</p>
+          <a href="${createWhatsAppUrl({ service: 'Move-in / Move-out Deep Cleaning', location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
+            🧹 Deep Cleaning / Move-In Scrub
+          </a>
+          <a href="${createWhatsAppUrl({ service: 'Emergency Plumbing / Electrical Repairs', location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
+            ⚡ Electrical or Plumbing Repair
+          </a>
+          <a href="${createWhatsAppUrl({ service: 'Diaspora Property Watch & Photographic Audit', location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
+            🌍 Diaspora Photographic Inspection
+          </a>
+          <a href="${createWhatsAppUrl({ service: 'Solar PV Cleaning & System Inspection', location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
+            ☀️ Solar Care &amp; Inverter Check
+          </a>
+        </div>
+      </div>
+      <div class="civitas-wa-popup-footer">
+        <a href="https://wa.me/${SITE_CONFIG.contact.whatsappNumber}?text=Hello%20Civitas%20Estate%20%26%20Maintenance!%20I%20have%20an%20enquiry%20about%20my%20property." target="_blank" rel="noopener noreferrer" class="civitas-wa-direct-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.087-.177.181-.076.355.101.174.449.741.964 1.2.662.591 1.221.774 1.394.861.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+          Open Chat Directly (+233 20 952 7426)
+        </a>
+      </div>
+    </div>
+
+    <button class="civitas-wa-trigger-btn" id="civitasWaTriggerBtn" aria-label="Open WhatsApp conversation" aria-expanded="false">
+      <span class="civitas-wa-trigger-pulse"></span>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.087-.177.181-.076.355.101.174.449.741.964 1.2.662.591 1.221.774 1.394.861.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+      <span class="civitas-wa-trigger-label">WhatsApp Us</span>
+    </button>
+  `;
+
+  document.body.appendChild(widget);
+
+  const trigger = document.getElementById('civitasWaTriggerBtn');
+  const popup = document.getElementById('civitasWaPopup');
+  const closeBtn = document.getElementById('civitasWaCloseBtn');
+
+  if (!trigger || !popup) return;
+
+  const togglePopup = () => {
+    const isOpen = popup.classList.contains('active');
+    if (isOpen) {
+      popup.classList.remove('active');
+      popup.setAttribute('aria-hidden', 'true');
+      trigger.setAttribute('aria-expanded', 'false');
+    } else {
+      popup.classList.add('active');
+      popup.setAttribute('aria-hidden', 'false');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+  };
+
+  trigger.addEventListener('click', togglePopup);
+  if (closeBtn) closeBtn.addEventListener('click', () => {
+    popup.classList.remove('active');
+    popup.setAttribute('aria-hidden', 'true');
+    trigger.setAttribute('aria-expanded', 'false');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && popup.classList.contains('active')) {
+      popup.classList.remove('active');
+      popup.setAttribute('aria-hidden', 'true');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
   });
 }
 

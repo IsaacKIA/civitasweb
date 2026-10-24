@@ -1536,20 +1536,27 @@ img, video {
 }
 
 .footer-brand p {
-  color: #B5C9C0;
-  font-size: 0.9rem;
+  color: #DDEBE5;
+}
+
+.footer-brand p {
+  color: #DDEBE5;
+  font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1.25rem;
 }
 
 .footer-col h4 {
-  color: var(--civitas-white);
+  color: #FFFFFF;
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 1.25rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+  padding-bottom: 0.35rem;
+  display: inline-block;
 }
 
 .footer-links {
@@ -1560,13 +1567,14 @@ img, video {
 }
 
 .footer-links a {
-  color: #B5C9C0;
-  font-size: 0.9rem;
-  transition: color var(--transition-fast);
+  color: #CFDFD8;
+  font-size: 0.92rem;
+  transition: all var(--transition-fast);
 }
 
 .footer-links a:hover {
-  color: var(--civitas-white);
+  color: #D4AF37;
+  padding-left: 4px;
 }
 
 .footer-contact-item {
@@ -1574,12 +1582,12 @@ img, video {
   align-items: flex-start;
   gap: 0.75rem;
   margin-bottom: 0.85rem;
-  font-size: 0.88rem;
-  color: #B5C9C0;
+  font-size: 0.92rem;
+  color: #CFDFD8;
 }
 
 .footer-contact-item svg {
-  color: var(--civitas-terracotta);
+  color: #D4AF37;
   flex-shrink: 0;
   margin-top: 0.2rem;
 }
@@ -1591,8 +1599,12 @@ img, video {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  font-size: 0.825rem;
-  color: #92ACA1;
+  font-size: 0.88rem;
+  color: #CFDFD8;
+}
+
+.footer-bottom p {
+  color: #CFDFD8;
 }
 
 .footer-legal-links {
@@ -1601,11 +1613,14 @@ img, video {
 }
 
 .footer-legal-links a {
-  color: #92ACA1;
+  color: #CFDFD8;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
 }
 
 .footer-legal-links a:hover {
-  color: var(--civitas-white);
+  color: #D4AF37;
 }
 
 /* Service Page Headers */
@@ -3946,3 +3961,260 @@ img, video {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   VIP WHATSAPP CONCIERGE WIDGET (HIGH CONVERSION SYSTEM)
+   ========================================================================== */
+.civitas-wa-widget {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  font-family: var(--font-body);
+}
+
+.civitas-wa-trigger-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: #25D366;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.4rem 0.75rem 1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4), 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.civitas-wa-trigger-btn:hover {
+  background: #20BA5A;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 32px rgba(37, 211, 102, 0.5), 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.civitas-wa-trigger-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.civitas-wa-trigger-pulse {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 12px;
+  height: 12px;
+  background: #FFD700;
+  border-radius: 50%;
+  border: 2px solid #25D366;
+  box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+  animation: pulseGold 2s infinite;
+}
+
+@keyframes pulseGold {
+  0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 215, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+
+.civitas-wa-popup {
+  position: absolute;
+  bottom: calc(100% + 1rem);
+  right: 0;
+  width: 360px;
+  max-width: calc(100vw - 2.5rem);
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(4, 37, 31, 0.25), 0 0 0 1px rgba(7, 85, 69, 0.1);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(0.96);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.civitas-wa-popup.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+.civitas-wa-popup-header {
+  background: linear-gradient(135deg, #04251F 0%, #075545 100%);
+  padding: 1.15rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.civitas-wa-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.civitas-wa-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  padding: 4px;
+  object-fit: contain;
+}
+
+.civitas-wa-status-dot {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 11px;
+  height: 11px;
+  background: #25D366;
+  border: 2px solid #04251F;
+  border-radius: 50%;
+}
+
+.civitas-wa-header-info {
+  flex-grow: 1;
+}
+
+.civitas-wa-header-info h5 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.civitas-wa-header-info span {
+  font-size: 0.75rem;
+  color: #A3C4B8;
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.civitas-wa-close-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #FFFFFF;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: background 0.2s ease;
+}
+
+.civitas-wa-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.civitas-wa-popup-body {
+  padding: 1.25rem;
+  background: #F8FAF9;
+}
+
+.civitas-wa-msg-bubble {
+  background: #FFFFFF;
+  border-radius: 14px 14px 14px 4px;
+  padding: 0.95rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(7, 85, 69, 0.08);
+}
+
+.civitas-wa-msg-bubble p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #1A3029;
+}
+
+.civitas-wa-timestamp {
+  display: block;
+  font-size: 0.7rem;
+  color: #8BA89D;
+  text-align: right;
+  margin-top: 0.4rem;
+}
+
+.civitas-wa-quick-options {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.civitas-wa-quick-title {
+  margin: 0 0 0.35rem 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6C857B;
+}
+
+.civitas-wa-chip {
+  display: block;
+  background: #FFFFFF;
+  border: 1px solid rgba(7, 85, 69, 0.15);
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #04251F;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.civitas-wa-chip:hover {
+  background: #E8F5F1;
+  border-color: #25D366;
+  color: #075545;
+  transform: translateX(3px);
+}
+
+.civitas-wa-popup-footer {
+  padding: 0.85rem 1.25rem;
+  background: #FFFFFF;
+  border-top: 1px solid rgba(7, 85, 69, 0.08);
+}
+
+.civitas-wa-direct-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #25D366;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 0.86rem;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.civitas-wa-direct-btn:hover {
+  background: #20BA5A;
+}
+
+@media (max-width: 768px) {
+  .civitas-wa-widget {
+    bottom: 5.5rem; /* Sit above the sticky mobile HUD */
+    right: 1rem;
+  }
+  .civitas-wa-trigger-label {
+    display: none;
+  }
+  .civitas-wa-trigger-btn {
+    padding: 0.85rem;
+    border-radius: 50%;
+  }
+}
+

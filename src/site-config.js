@@ -36,13 +36,12 @@ export const SITE_CONFIG = {
   },
 
   contact: {
-    // Official WhatsApp number format: Country code + number without plus or spaces for wa.me
-    // Default placeholder is Ghana +233 55 000 0000; can be updated here instantly
-    whatsappNumber: '233550000000', 
-    whatsappDisplay: '+233 (0) 55 000 0000',
-    phone: '+233 (0) 30 000 0000',
-    email: 'enquiries@civitasestate.com',
-    careersEmail: 'careers@civitasestate.com',
+    // Official WhatsApp number: +233 20 952 7426
+    whatsappNumber: '233209527426', 
+    whatsappDisplay: '+233 (0) 20 952 7426',
+    phone: '+233 (0) 20 952 7426',
+    email: 'admin@civitasestate.com',
+    careersEmail: 'admin@civitasestate.com',
     officeAddress: 'Accra & Tema, Greater Accra Region, Ghana',
     workingHours: 'Monday – Saturday: 8:00 AM – 6:00 PM GMT'
   },
