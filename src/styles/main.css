@@ -378,44 +378,7 @@ img, video {
 
 /* Pre-Launch Banner */
 .pre-launch-bar {
-  background-color: var(--civitas-forest);
-  color: #E2ECE7;
-  padding: 0.55rem 1rem;
-  font-size: 0.84rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  position: relative;
-  z-index: 101;
-  text-align: center;
-  line-height: 1.45;
-}
-
-.pre-launch-bar .tag {
-  background-color: var(--civitas-terracotta);
-  color: #FFFFFF;
-  font-weight: 700;
-  font-size: 0.7rem;
-  padding: 0.2rem 0.65rem;
-  border-radius: var(--radius-pill);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-  flex-shrink: 0;
-  display: inline-block;
-  line-height: 1.3;
-}
-
-.pre-launch-bar a {
-  color: #FFFFFF;
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-.pre-launch-bar a:hover {
-  color: var(--civitas-terracotta);
+  display: none !important;
 }
 
 /* Site Header & Navigation */

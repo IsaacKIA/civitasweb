@@ -8,8 +8,8 @@
  */
 
 export const SITE_CONFIG = {
-  // Mode toggle: 'pre-launch' or 'live'
-  mode: 'pre-launch', 
+  // Mode toggle: 'live' (active commercial operations)
+  mode: 'live', 
   
   brand: {
     name: 'Civitas Estate & Maintenance',
@@ -18,8 +18,6 @@ export const SITE_CONFIG = {
     tagline: 'Smart Living. Sustainable Legacy.',
     positioning: 'Professional property care, dependable maintenance and thoughtful oversight for homes and businesses in Accra and Tema.',
     url: 'https://www.civitasestate.com',
-    launchDate: 'January 2027',
-    preLaunchPeriod: 'November–December 2026',
     establishedYear: '2026',
     country: 'Ghana',
     cities: ['Accra', 'Tema']

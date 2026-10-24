@@ -236,37 +236,24 @@ Please advise on your contractor onboarding and vetting process.`;
  * Pre-launch vs Live mode UI adaptation
  */
 function initPreLaunchModeUI() {
-  const isPreLaunch = SITE_CONFIG.mode === 'pre-launch';
   const preLaunchBanner = document.querySelector('.pre-launch-bar');
   if (preLaunchBanner) {
-    preLaunchBanner.style.display = isPreLaunch ? 'flex' : 'none';
+    preLaunchBanner.remove();
   }
 
-  // Update dynamic labels if in pre-launch
-  if (isPreLaunch) {
-    document.querySelectorAll('[data-mode-cta]').forEach(el => {
-      if (el.getAttribute('data-mode-cta') === 'primary') {
-        el.textContent = 'Register Your Interest';
-      } else if (el.getAttribute('data-mode-cta') === 'secondary') {
-        el.textContent = 'Enquire About January Bookings';
-      }
-    });
-  }
+  // Ensure high-converting commercial CTAs are active everywhere
+  document.querySelectorAll('[data-mode-cta]').forEach(el => {
+    if (el.getAttribute('data-mode-cta') === 'primary') {
+      el.textContent = 'Request a Free Quote';
+    } else if (el.getAttribute('data-mode-cta') === 'secondary') {
+      el.textContent = 'Book Immediate Service';
+    }
+  });
 }
 
-/**
- * Optional Dev/Client Mode Switcher in footer
- * Allows stakeholders to toggle between Pre-Launch and Live view in real-time
- */
 function initModeSwitcherBadge() {
   const switcher = document.getElementById('modeSwitcherBtn');
-  if (!switcher) return;
-
-  switcher.addEventListener('click', () => {
-    SITE_CONFIG.mode = SITE_CONFIG.mode === 'pre-launch' ? 'live' : 'pre-launch';
-    localStorage.setItem('civitas_site_mode', SITE_CONFIG.mode);
-    location.reload();
-  });
+  if (switcher) switcher.remove();
 }
 
 /**
