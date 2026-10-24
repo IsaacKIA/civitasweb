@@ -1,0 +1,9 @@
+# Robots.txt for Civitas Estate & Maintenance
+# https://www.civitasestate.com
+
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+# XML Sitemap Location
+Sitemap: https://www.civitasestate.com/sitemap.xml
