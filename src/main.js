@@ -261,22 +261,50 @@ function initModeSwitcherBadge() {
  * 1. Video Lightbox Modal for Field Operations Showcase
  */
 function initVideoShowcaseModal() {
-  const modal = document.getElementById('videoLightboxModal') || document.getElementById('videoModal');
-  const videoPlayer = document.getElementById('videoLightboxPlayer') || document.getElementById('modalVideoPlayer');
-  const closeBtn = document.getElementById('videoLightboxClose') || document.getElementById('videoModalClose');
-  const triggers = document.querySelectorAll('[data-video-src]');
+  let modal = document.getElementById('videoLightboxModal') || document.getElementById('videoModal');
+  let videoPlayer = document.getElementById('videoLightboxPlayer') || document.getElementById('modalVideoPlayer');
+  let closeBtn = document.getElementById('videoLightboxClose') || document.getElementById('videoModalClose');
 
-  if (!modal || !videoPlayer) return;
+  // If modal doesn't exist on page, dynamically create it
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.className = 'video-lightbox';
+    modal.id = 'videoLightboxModal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Field Operations Video Player');
+    modal.innerHTML = `
+      <div class="video-lightbox-content">
+        <button class="video-lightbox-close" id="videoLightboxClose" aria-label="Close video player">&times;</button>
+        <video class="video-lightbox-player" id="videoLightboxPlayer" controls playsinline disablePictureInPicture controlsList="nodownload noplaybackrate">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    videoPlayer = modal.querySelector('#videoLightboxPlayer');
+    closeBtn = modal.querySelector('#videoLightboxClose');
+  }
 
   const openVideoModal = (videoSrc) => {
+    if (!videoSrc || !videoPlayer) return;
     videoPlayer.src = videoSrc;
+    modal.classList.add('open');
     modal.classList.add('active');
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
-    videoPlayer.play().catch(() => {});
+    const playPromise = videoPlayer.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        videoPlayer.muted = true;
+        videoPlayer.play().catch(() => {});
+      });
+    }
   };
 
   const closeVideoModal = () => {
+    if (!modal || !videoPlayer) return;
+    modal.classList.remove('open');
     modal.classList.remove('active');
     modal.style.display = '';
     document.body.style.overflow = '';
@@ -285,12 +313,14 @@ function initVideoShowcaseModal() {
     videoPlayer.load();
   };
 
-  triggers.forEach(btn => {
-    btn.addEventListener('click', (e) => {
+  // Global click delegate for any video triggers
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-video-src], .video-play-btn, .video-trigger-link');
+    if (trigger) {
       e.preventDefault();
-      const src = btn.getAttribute('data-video-src');
+      const src = trigger.getAttribute('data-video-src');
       if (src) openVideoModal(src);
-    });
+    }
   });
 
   if (closeBtn) closeBtn.addEventListener('click', closeVideoModal);
@@ -300,7 +330,7 @@ function initVideoShowcaseModal() {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
+    if (e.key === 'Escape' && (modal.classList.contains('open') || modal.classList.contains('active'))) {
       closeVideoModal();
     }
   });
@@ -314,15 +344,34 @@ function initHeroVideoControls() {
   const togglePlayBtn = document.getElementById('heroVideoPlayBtn');
   const toggleMuteBtn = document.getElementById('heroVideoMuteBtn');
 
+  // Autoplay all ambient videos safely with muted property
+  const ambientVideos = document.querySelectorAll('.hero-video-background, .hero-showcase-video, video[autoplay]');
+  ambientVideos.forEach(v => {
+    v.muted = true;
+    v.playsInline = true;
+    const p = v.play();
+    if (p !== undefined) {
+      p.catch(() => {
+        const startOnTouch = () => {
+          v.play().catch(() => {});
+          document.removeEventListener('touchstart', startOnTouch);
+          document.removeEventListener('click', startOnTouch);
+        };
+        document.addEventListener('touchstart', startOnTouch, { once: true });
+        document.addEventListener('click', startOnTouch, { once: true });
+      });
+    }
+  });
+
   if (!heroVideo) return;
 
   if (togglePlayBtn) {
     togglePlayBtn.addEventListener('click', () => {
       if (heroVideo.paused) {
-        heroVideo.play();
+        heroVideo.play().catch(() => {});
         togglePlayBtn.innerHTML = `
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-          Pause
+          Field Operations
         `;
       } else {
         heroVideo.pause();
