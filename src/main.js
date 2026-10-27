@@ -1,4 +1,5 @@
 import { SITE_CONFIG, createWhatsAppUrl } from './site-config.js';
+import { calculateSmartQuote, buildWhatsAppQuotationMessage, SMARTQUOTE_CONFIG } from './smartquote-engine.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPlanEstimator();
   initSuburbCoverageChecker();
   initAnimatedStatsCounter();
+  initSmartQuote();
   initHealthScoreAudit();
   initReportSimulator();
   initGlobalWhatsAppWidget();
@@ -681,129 +683,459 @@ function initAnimatedStatsCounter() {
 }
 
 /**
- * 7. Interactive Property Health Score™ & Risk Diagnostic Simulator
+ * 7. CIVITAS SMARTQUOTE™ — Interactive Service Pricing & Quotation Engine
+ */
+function initSmartQuote() {
+  const container = document.getElementById('smartQuoteApp');
+  if (!container) return;
+
+  // Track user interaction state
+  const state = {
+    currentStep: 1,
+    serviceId: 'standard-cleaning',
+    propertyType: 'villa',
+    bedrooms: '3-bed',
+    bathrooms: '3',
+    condition: 'well-maintained',
+    frequency: 'one-off',
+    propertySize: 'under-250',
+    inspectionType: 'standard-audit',
+    repairCategory: 'plumbing',
+    repairScope: '1-2',
+    repairNotes: '',
+    locationZone: 'accra-core',
+    addons: []
+  };
+
+  // DOM Elements
+  const progressBar = document.getElementById('sqProgressBar');
+  const stepButtons = container.querySelectorAll('.sq-step-node');
+  const panes = container.querySelectorAll('.sq-pane');
+  const backBtn = document.getElementById('sqNavBackBtn');
+  const nextBtn = document.getElementById('sqNavNextBtn');
+
+  // Sidebar Elements
+  const livePriceDisplay = document.getElementById('sqLivePriceDisplay');
+  const liveAmountNum = document.getElementById('sqLiveAmountNum');
+  const livePriceSubtext = document.getElementById('sqLivePriceSubtext');
+  const liveServiceLabel = document.getElementById('sqLiveServiceLabel');
+  const livePropertyLabel = document.getElementById('sqLivePropertyLabel');
+  const liveLocationLabel = document.getElementById('sqLiveLocationLabel');
+  const liveAddonsLabel = document.getElementById('sqLiveAddonsLabel');
+  const sidebarWhatsAppBtn = document.getElementById('sqSidebarWhatsAppBtn');
+
+  // Step 5 Result Elements
+  const heroAmountNum = document.getElementById('sqHeroAmountNum');
+  const heroStatusTag = document.getElementById('sqHeroStatusTag');
+  const resService = document.getElementById('sqResService');
+  const resProperty = document.getElementById('sqResProperty');
+  const resLocation = document.getElementById('sqResLocation');
+  const resAddons = document.getElementById('sqResAddons');
+  const finalWhatsAppBtn = document.getElementById('sqFinalWhatsAppBtn');
+  const copyQuoteBtn = document.getElementById('sqCopyQuoteBtn');
+  const restartBtn = document.getElementById('sqRestartBtn');
+  const toast = document.getElementById('sqToast');
+
+  // Dynamic Form Field Containers
+  const cleaningFields = document.getElementById('sqCleaningFields');
+  const inspectionFields = document.getElementById('sqInspectionFields');
+  const repairsFields = document.getElementById('sqRepairsFields');
+  const cleaningAddons = document.getElementById('sqCleaningAddons');
+  const inspectionAddons = document.getElementById('sqInspectionAddons');
+  const repairsAddonsNotice = document.getElementById('sqRepairsAddonsNotice');
+
+  // Dispatch Analytics Helper
+  const triggerEvent = (eventName, detail = {}) => {
+    try {
+      const evt = new CustomEvent(eventName, { detail });
+      window.dispatchEvent(evt);
+    } catch (_) {}
+  };
+
+  // Step Navigation Logic
+  const goToStep = (targetStep) => {
+    if (targetStep < 1 || targetStep > 5) return;
+    state.currentStep = targetStep;
+
+    // Update Stepper Progress
+    const progressPercentages = { 1: '20%', 2: '40%', 3: '60%', 4: '80%', 5: '100%' };
+    if (progressBar) progressBar.style.width = progressPercentages[targetStep];
+
+    stepButtons.forEach(btn => {
+      const step = parseInt(btn.getAttribute('data-step'), 10);
+      btn.classList.remove('active', 'completed');
+      btn.setAttribute('aria-selected', 'false');
+
+      if (step === targetStep) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+      } else if (step < targetStep) {
+        btn.classList.add('completed');
+      }
+    });
+
+    // Toggle Panes
+    panes.forEach(pane => {
+      pane.classList.remove('active');
+      if (pane.id === `sqPane${targetStep}`) {
+        pane.classList.add('active');
+      }
+    });
+
+    // Update Navigation Buttons
+    if (backBtn) {
+      backBtn.disabled = targetStep === 1;
+    }
+
+    if (nextBtn) {
+      if (targetStep === 1) {
+        nextBtn.innerHTML = '<span>Continue to Property Details</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+        nextBtn.style.display = 'inline-flex';
+      } else if (targetStep === 2) {
+        nextBtn.innerHTML = '<span>Continue to Location</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+        nextBtn.style.display = 'inline-flex';
+      } else if (targetStep === 3) {
+        nextBtn.innerHTML = '<span>Continue to Add-ons</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+        nextBtn.style.display = 'inline-flex';
+      } else if (targetStep === 4) {
+        nextBtn.innerHTML = '<span>Get My Estimate</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+        nextBtn.style.display = 'inline-flex';
+      } else if (targetStep === 5) {
+        nextBtn.style.display = 'none'; // Replaced by primary conversion CTA in pane 5
+      }
+    }
+
+    triggerEvent('smartquote_step_completed', { step: targetStep });
+
+    // Scroll smoothly to top of card on mobile
+    if (window.innerWidth < 900 && targetStep > 1) {
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  // Switch Sub-form Views Based On Service Category
+  const syncServicePanels = () => {
+    const isInspection = state.serviceId === 'condition-inspection';
+    const isRepairs = state.serviceId === 'minor-repairs';
+
+    // Step 2 Form Switching
+    if (cleaningFields) cleaningFields.style.display = (!isInspection && !isRepairs) ? 'block' : 'none';
+    if (inspectionFields) inspectionFields.style.display = isInspection ? 'block' : 'none';
+    if (repairsFields) repairsFields.style.display = isRepairs ? 'block' : 'none';
+
+    // Step 4 Add-ons Switching
+    if (cleaningAddons) cleaningAddons.style.display = (!isInspection && !isRepairs) ? 'grid' : 'none';
+    if (inspectionAddons) inspectionAddons.style.display = isInspection ? 'grid' : 'none';
+    if (repairsAddonsNotice) repairsAddonsNotice.style.display = isRepairs ? 'block' : 'none';
+
+    // Purge incompatible add-ons
+    const validAddonIds = Object.keys(SMARTQUOTE_CONFIG.addons).filter(id => {
+      const addon = SMARTQUOTE_CONFIG.addons[id];
+      return addon.categories.includes(state.serviceId);
+    });
+    state.addons = state.addons.filter(id => validAddonIds.includes(id));
+
+    // Update active state of addon checkboxes
+    container.querySelectorAll('.sq-addon-card').forEach(card => {
+      const addonId = card.getAttribute('data-addon-id');
+      card.classList.toggle('selected', state.addons.includes(addonId));
+    });
+  };
+
+  // Recalculate Live Quote and Update All UI Touchpoints
+  const recalculate = () => {
+    const result = calculateSmartQuote({
+      serviceId: state.serviceId,
+      propertyType: state.propertyType,
+      bedrooms: state.bedrooms,
+      bathrooms: state.bathrooms,
+      condition: state.condition,
+      frequency: state.frequency,
+      propertySize: state.propertySize,
+      inspectionType: state.inspectionType,
+      locationZone: state.locationZone,
+      addons: state.addons,
+      repairCategory: state.repairCategory,
+      customerNotes: state.repairNotes
+    });
+
+    const isInspection = state.serviceId === 'condition-inspection';
+    const isRepairs = state.serviceId === 'minor-repairs';
+
+    // Generate Human-Readable Summaries
+    let propertySummary = '';
+    if (isRepairs) {
+      const catLabels = {
+        'plumbing': 'Plumbing & Drainage',
+        'electrical': 'Electrical & Lighting',
+        'hvac': 'AC Servicing & Gas',
+        'carpentry': 'Carpentry & Locks',
+        'multi-trade': 'Multi-Trade Punch List'
+      };
+      propertySummary = `${catLabels[state.repairCategory] || 'General Repairs'} (${state.repairScope} faults)`;
+    } else if (isInspection) {
+      const sizeLabels = {
+        'under-250': 'Up to 250 m²',
+        '250-500': '250–500 m²',
+        'over-500': '500+ m²'
+      };
+      const scopeLabels = {
+        'standard-audit': 'Routine Condition Audit',
+        'pre-purchase': 'Pre-Purchase Due Diligence',
+        'diaspora-oversight': 'Diaspora Remote Oversight'
+      };
+      propertySummary = `${scopeLabels[state.inspectionType] || 'Inspection'} (${sizeLabels[state.propertySize] || 'Standard'})`;
+    } else {
+      const propLabels = {
+        'villa': 'Villa / House',
+        'apartment': 'Luxury Apartment',
+        'townhouse': 'Townhouse',
+        'commercial': 'Commercial / Office'
+      };
+      propertySummary = `${state.bedrooms.replace('-', ' ')}, ${state.bathrooms} Bath (${propLabels[state.propertyType] || 'Residential'})`;
+    }
+
+    const addonNames = state.addons.map(id => SMARTQUOTE_CONFIG.addons[id]?.name).filter(Boolean);
+    const addonsSummary = addonNames.length > 0 ? addonNames.join(', ') : 'None selected';
+
+    // Update Sidebar Scorecard
+    if (liveServiceLabel) liveServiceLabel.textContent = result.serviceName || 'Property Care';
+    if (livePropertyLabel) livePropertyLabel.textContent = propertySummary;
+    if (liveLocationLabel) liveLocationLabel.textContent = result.locationName || 'Accra / Tema';
+    if (liveAddonsLabel) {
+      liveAddonsLabel.textContent = state.addons.length > 0 ? `${state.addons.length} item(s) (+GH₵ ${result.addonsTotal})` : '0 selected';
+    }
+
+    if (result.status === 'estimate') {
+      if (livePriceDisplay) {
+        livePriceDisplay.innerHTML = `<span class="sq-c-symbol">GH₵</span><span id="sqLiveAmountNum">${result.indicativePrice.toLocaleString()}</span>`;
+      }
+      if (livePriceSubtext) {
+        livePriceSubtext.textContent = result.logisticsCost > 0 ? `Includes GH₵ ${result.logisticsCost} logistics allowance` : 'Includes labour, materials & equipment';
+      }
+      if (heroAmountNum) {
+        heroAmountNum.textContent = result.indicativePrice.toLocaleString();
+        const heroDisplay = document.getElementById('sqHeroPriceDisplay');
+        if (heroDisplay) heroDisplay.innerHTML = `<span class="sq-currency">GH₵</span><span>${result.indicativePrice.toLocaleString()}</span>`;
+      }
+      if (heroStatusTag) {
+        heroStatusTag.textContent = result.discountApplied ? `Indicative Estimate (${result.discountApplied} Savings)` : 'Indicative Estimate';
+        heroStatusTag.style.background = 'rgba(212, 175, 55, 0.2)';
+        heroStatusTag.style.color = '#F8E5A0';
+      }
+    } else if (result.status === 'assessment_required') {
+      if (livePriceDisplay) {
+        livePriceDisplay.innerHTML = `<span style="font-size: 1.35rem; color: #FFAE8C;">Assessment Required</span>`;
+      }
+      if (livePriceSubtext) {
+        livePriceSubtext.textContent = 'Technician site diagnosis needed';
+      }
+      if (heroStatusTag) {
+        heroStatusTag.textContent = 'Site Assessment Required';
+        heroStatusTag.style.background = 'rgba(228, 105, 63, 0.25)';
+        heroStatusTag.style.color = '#FFAE8C';
+      }
+      const heroDisplay = document.getElementById('sqHeroPriceDisplay');
+      if (heroDisplay) heroDisplay.innerHTML = `<span style="font-size: 1.75rem; color: #FFAE8C;">Assessment Required</span>`;
+    } else if (result.status === 'custom_quotation') {
+      if (livePriceDisplay) {
+        livePriceDisplay.innerHTML = `<span style="font-size: 1.35rem; color: #FFAE8C;">Custom Quotation</span>`;
+      }
+      if (livePriceSubtext) {
+        livePriceSubtext.textContent = 'Outside standard zone corridors';
+      }
+      if (heroStatusTag) {
+        heroStatusTag.textContent = 'Custom Quotation Required';
+        heroStatusTag.style.background = 'rgba(228, 105, 63, 0.25)';
+        heroStatusTag.style.color = '#FFAE8C';
+      }
+      const heroDisplay = document.getElementById('sqHeroPriceDisplay');
+      if (heroDisplay) heroDisplay.innerHTML = `<span style="font-size: 1.75rem; color: #FFAE8C;">Custom Quotation</span>`;
+    }
+
+    // Update Step 5 Result Breakdown
+    if (resService) resService.textContent = result.serviceName;
+    if (resProperty) resProperty.textContent = propertySummary;
+    if (resLocation) {
+      resLocation.textContent = `${result.locationName}${result.logisticsCost > 0 ? ` (+GH₵ ${result.logisticsCost} Logistics)` : ' (Base Logistics)'}`;
+    }
+    if (resAddons) resAddons.textContent = addonsSummary;
+
+    // Generate WhatsApp Quotation Link
+    const waPayload = buildWhatsAppQuotationMessage({
+      serviceName: result.serviceName,
+      propertyType: state.propertyType ? state.propertyType.charAt(0).toUpperCase() + state.propertyType.slice(1) : 'Residential',
+      propertySize: propertySummary,
+      propertyCondition: state.condition || 'Standard',
+      location: `${result.locationName} (${result.suburbsSummary || 'Greater Accra'})`,
+      additionalServices: addonsSummary,
+      indicativeEstimate: result.indicativePrice ? `GH₵ ${result.indicativePrice.toLocaleString()}` : 'Site Assessment Required',
+      quotationStatus: result.status === 'estimate' ? 'Indicative Estimate' : (result.status === 'assessment_required' ? 'Assessment Required' : 'Custom Quotation Required'),
+      customerNotes: state.repairNotes || (result.discountApplied ? `Customer selected ${state.frequency} frequency (${result.discountApplied} savings).` : '')
+    });
+
+    if (finalWhatsAppBtn) {
+      finalWhatsAppBtn.href = waPayload.whatsappUrl;
+      finalWhatsAppBtn.onclick = () => {
+        triggerEvent('smartquote_whatsapp_clicked', { service: result.serviceName, estimate: result.indicativePrice });
+      };
+    }
+    if (sidebarWhatsAppBtn) {
+      sidebarWhatsAppBtn.href = waPayload.whatsappUrl;
+      sidebarWhatsAppBtn.onclick = () => {
+        triggerEvent('smartquote_whatsapp_clicked', { service: result.serviceName, estimate: result.indicativePrice });
+      };
+    }
+
+    // Attach copy button action
+    if (copyQuoteBtn) {
+      copyQuoteBtn.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(waPayload.rawMessage);
+          if (toast) {
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3500);
+          }
+        } catch (_) {
+          // Fallback if clipboard API is restricted
+          alert('SmartQuote Summary:\n\n' + waPayload.rawMessage);
+        }
+      };
+    }
+  };
+
+  // Wire Event Listeners: Service Selection Cards
+  const serviceCards = container.querySelectorAll('.sq-service-card');
+  serviceCards.forEach(card => {
+    const handleSelect = () => {
+      serviceCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      state.serviceId = card.getAttribute('data-service-id');
+
+      syncServicePanels();
+      recalculate();
+      triggerEvent('smartquote_service_selected', { serviceId: state.serviceId });
+    };
+
+    card.addEventListener('click', handleSelect);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleSelect();
+      }
+    });
+  });
+
+  // Wire Event Listeners: Chips (Property Details)
+  const chips = container.querySelectorAll('.sq-chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const group = chip.getAttribute('data-group');
+      const val = chip.getAttribute('data-val');
+      if (!group || !val) return;
+
+      const groupChips = container.querySelectorAll(`.sq-chip[data-group="${group}"]`);
+      groupChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      state[group] = val;
+      recalculate();
+    });
+  });
+
+  // Wire Event Listeners: Location Cards
+  const locationCards = container.querySelectorAll('.sq-location-card');
+  locationCards.forEach(card => {
+    card.addEventListener('click', () => {
+      locationCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      state.locationZone = card.getAttribute('data-zone-id');
+      recalculate();
+    });
+  });
+
+  // Wire Event Listeners: Add-ons Cards
+  const addonCards = container.querySelectorAll('.sq-addon-card');
+  addonCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const addonId = card.getAttribute('data-addon-id');
+      if (!addonId) return;
+
+      if (state.addons.includes(addonId)) {
+        state.addons = state.addons.filter(id => id !== addonId);
+        card.classList.remove('selected');
+      } else {
+        state.addons.push(addonId);
+        card.classList.add('selected');
+      }
+      recalculate();
+    });
+  });
+
+  // Wire Repair Notes Field
+  const repairNotesInput = document.getElementById('sqRepairNotes');
+  if (repairNotesInput) {
+    repairNotesInput.addEventListener('input', (e) => {
+      state.repairNotes = e.target.value.trim();
+      recalculate();
+    });
+  }
+
+  // Wire Navigation Buttons
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      goToStep(state.currentStep + 1);
+    });
+  }
+
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      goToStep(state.currentStep - 1);
+    });
+  }
+
+  // Wire Stepper Node Buttons
+  stepButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const step = parseInt(btn.getAttribute('data-step'), 10);
+      goToStep(step);
+    });
+  });
+
+  // Wire Restart Button
+  if (restartBtn) {
+    restartBtn.addEventListener('click', () => {
+      state.serviceId = 'standard-cleaning';
+      state.locationZone = 'accra-core';
+      state.addons = [];
+      syncServicePanels();
+      recalculate();
+      goToStep(1);
+    });
+  }
+
+  // IntersectionObserver for Analytics view event
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        triggerEvent('smartquote_viewed');
+        observer.unobserve(container);
+      }
+    });
+  }, { threshold: 0.25 });
+  observer.observe(container);
+
+  // Initial Sync & Run
+  syncServicePanels();
+  recalculate();
+}
+
+/**
+ * Backward compatibility stub for healthScoreAudit (if referenced on subpages)
  */
 function initHealthScoreAudit() {
   const auditContainer = document.getElementById('healthScoreAudit');
   if (!auditContainer) return;
-
-  const chips = auditContainer.querySelectorAll('.health-chip');
-  const scoreNum = auditContainer.querySelector('#healthScoreNumber');
-  const statusBadge = auditContainer.querySelector('#healthStatusBadge');
-  const lossEl = auditContainer.querySelector('#healthLossAmount');
-  const whatsAppBtn = auditContainer.querySelector('#healthWhatsAppBtn');
-
-  // Risk breakdown elements
-  const valElectrical = auditContainer.querySelector('#riskValElectrical');
-  const valHVAC = auditContainer.querySelector('#riskValHVAC');
-  const valPlumbing = auditContainer.querySelector('#riskValPlumbing');
-  const valSolar = auditContainer.querySelector('#riskValSolar');
-
-  const auditState = {
-    location: 'East Legon',
-    scale: 'Standalone Villa',
-    method: 'Ad-hoc Roadside Artisans',
-    systems: ['Solar & Inverter', 'Multi-split ACs']
-  };
-
-  const calculateHealth = () => {
-    let score = 92;
-    let baseLoss = 12000;
-
-    // Method penalty
-    if (auditState.method === 'Ad-hoc Roadside Artisans') {
-      score -= 28;
-      baseLoss += 26500;
-      if (valElectrical) { valElectrical.textContent = 'High Fault Risk'; valElectrical.style.color = '#FFAE8C'; }
-    } else if (auditState.method === 'Caretaker / Self-Managed') {
-      score -= 16;
-      baseLoss += 14000;
-      if (valElectrical) { valElectrical.textContent = 'Moderate Risk'; valElectrical.style.color = '#F8E5A0'; }
-    } else {
-      score -= 34;
-      baseLoss += 35000;
-      if (valElectrical) { valElectrical.textContent = 'Critical Neglect'; valElectrical.style.color = '#FFAE8C'; }
-    }
-
-    // Scale impact
-    if (auditState.scale === 'Standalone Villa') {
-      baseLoss *= 1.35;
-    } else if (auditState.scale === 'Executive Residence') {
-      baseLoss *= 1.15;
-    }
-
-    // Systems impact
-    if (auditState.systems.includes('Solar & Inverter')) {
-      if (valSolar) { valSolar.textContent = 'Needs Bi-Annual Flush'; valSolar.style.color = '#F8E5A0'; }
-    } else {
-      if (valSolar) { valSolar.textContent = 'Grid Only'; valSolar.style.color = '#B5D2C8'; }
-    }
-
-    if (valHVAC) {
-      valHVAC.textContent = score < 65 ? 'High Compressor Wear' : 'Moderate Filter Wash Due';
-      valHVAC.style.color = score < 65 ? '#FFAE8C' : '#F8E5A0';
-    }
-
-    if (valPlumbing) {
-      valPlumbing.textContent = score < 60 ? 'Pressure Fluctuations' : 'Acceptable Head';
-      valPlumbing.style.color = score < 60 ? '#FFAE8C' : '#72F19E';
-    }
-
-    // Bound score
-    score = Math.max(38, Math.min(score, 96));
-    const roundedLoss = Math.round(baseLoss / 500) * 500;
-
-    if (scoreNum) scoreNum.textContent = score;
-
-    if (statusBadge) {
-      statusBadge.className = 'score-status-badge';
-      if (score < 60) {
-        statusBadge.classList.add('alert');
-        statusBadge.textContent = 'High Depreciation Risk';
-      } else if (score < 78) {
-        statusBadge.classList.add('caution');
-        statusBadge.textContent = 'Moderate Attention Required';
-      } else {
-        statusBadge.classList.add('optimal');
-        statusBadge.textContent = 'Standard Condition';
-      }
-    }
-
-    if (lossEl) {
-      lossEl.textContent = `GH₵ ${roundedLoss.toLocaleString()}`;
-    }
-
-    if (whatsAppBtn) {
-      const msg = `Hello Civitas Concierge, I completed the Property Health Diagnostic on civitasestate.com for my ${auditState.scale} in ${auditState.location}. My diagnostic score was ${score}/100 with an estimated 3-year risk of GH₵${roundedLoss.toLocaleString()}. I would like to schedule a formal Civitas Condition Assessment.`;
-      whatsAppBtn.href = createWhatsAppUrl(msg);
-    }
-  };
-
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      const category = chip.getAttribute('data-cat');
-      const val = chip.getAttribute('data-val');
-
-      if (category === 'systems') {
-        chip.classList.toggle('active');
-        if (chip.classList.contains('active')) {
-          if (!auditState.systems.includes(val)) auditState.systems.push(val);
-        } else {
-          auditState.systems = auditState.systems.filter(s => s !== val);
-        }
-      } else {
-        const siblings = auditContainer.querySelectorAll(`.health-chip[data-cat="${category}"]`);
-        siblings.forEach(s => s.classList.remove('active'));
-        chip.classList.add('active');
-        auditState[category] = val;
-      }
-
-      calculateHealth();
-    });
-  });
-
-  // Initial calculation
-  calculateHealth();
 }
 
 /**
