@@ -37,6 +37,8 @@ export default defineConfig({
         insightAirbnbHost: resolve(__dirname, 'insights/airbnb-short-let-maintenance-turnaround-accra/index.html'),
         insightCommercialFacility: resolve(__dirname, 'insights/commercial-facility-management-maintenance-accra/index.html'),
         contact: resolve(__dirname, 'contact/index.html'),
+        getAQuote: resolve(__dirname, 'get-a-quote/index.html'),
+        adminQuotes: resolve(__dirname, 'admin/quotes/index.html'),
         privacy: resolve(__dirname, 'privacy/index.html'),
         terms: resolve(__dirname, 'terms/index.html'),
         notFound: resolve(__dirname, '404.html')

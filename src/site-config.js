@@ -1,16 +1,20 @@
 /**
  * CIVITAS ESTATE & MAINTENANCE
  * Global Site Configuration & Business Data Engine
- * 
- * Easily toggle between 'pre-launch' and 'live' modes.
- * Pre-launch Mode: November–December 2026 (Focus on interest registration & advance Jan 2027 bookings)
- * Live Mode: Commercial operations (Focus on immediate quotes & scheduling)
  */
 
+import {
+  PRICE_LIST,
+  PRICE_VERSION_LINE,
+  HOW_WE_SET_PRICES,
+  formatPrice,
+  formatFromPrice,
+} from './config/pricing.ts';
+
 export const SITE_CONFIG = {
-  // Mode toggle: 'live' (active commercial operations)
-  mode: 'live', 
-  
+  mode: 'live',
+  priceVersionLine: PRICE_VERSION_LINE,
+
   brand: {
     name: 'Civitas Estate & Maintenance',
     legalName: 'Civitas Estate & Maintenance Ltd.',
@@ -23,7 +27,6 @@ export const SITE_CONFIG = {
     cities: ['Accra', 'Tema']
   },
 
-  // Authoritative Assets (strictly from client-supplied logo kit)
   assets: {
     logoOriginal: '/assets/logos/Civitas_Official_Logo_Original.png',
     logoTransparent: '/assets/logos/Civitas_Official_Logo_Transparent.png',
@@ -34,8 +37,7 @@ export const SITE_CONFIG = {
   },
 
   contact: {
-    // Official WhatsApp number: +233 20 952 7426
-    whatsappNumber: '233209527426', 
+    whatsappNumber: '233209527426',
     whatsappDisplay: '+233 (0) 20 952 7426',
     phone: '+233 (0) 20 952 7426',
     email: 'admin@civitasestate.com',
@@ -44,14 +46,13 @@ export const SITE_CONFIG = {
     workingHours: 'Monday – Saturday: 8:00 AM – 6:00 PM GMT'
   },
 
-  // Service Divisions
   divisions: [
     {
       id: 'civitas-fix',
       name: 'Civitas Fix',
       subtitle: 'Cleaning, Repairs & Maintenance',
       headline: 'Cleaning, Repairs & Maintenance Made Simpler.',
-      summary: 'From routine residential cleaning and deep cleaning to minor repairs and general maintenance, Civitas Fix helps you keep your property in good condition.',
+      summary: 'From standard residential cleaning, Apartment Ready turnarounds, move-in/move-out cleaning and deep cleaning to minor defined-fault repairs, Civitas Fix keeps your property in good condition with clear scope-based pricing.',
       url: '/services/civitas-fix/',
       badge: 'Immediate Upkeep',
       accent: 'emerald',
@@ -60,24 +61,17 @@ export const SITE_CONFIG = {
         {
           title: 'Cleaning Services',
           items: [
-            { name: 'Routine Residential Cleaning', desc: 'Daily/weekly upkeep for living spaces, floors, kitchens, and bathrooms.' },
-            { name: 'Deep Cleaning', desc: 'Intensive top-to-bottom sanitize and scrub for built-up grime and neglected areas.' },
-            { name: 'Move-In & Move-Out Cleaning', desc: 'Turnover preparation ensuring spotless handovers between tenants or owners.' },
-            { name: 'Upholstery Cleaning', desc: 'Fabric-safe deep extraction for sofas, armchairs, and cushions.' },
-            { name: 'Pressure Washing', desc: 'High-pressure cleaning for driveways, exterior walls, compounds, and stone paths.' },
-            { name: 'Post-Construction Cleaning', desc: 'Debris, paint residue, and fine dust clearance following renovation or construction.' }
+            { name: PRICE_LIST.cleaning.standard.label, desc: `From ${formatPrice(PRICE_LIST.cleaning.standard['1'])} — Reachable surfaces, accessible floors, kitchen counters and bathroom fixtures.` },
+            { name: PRICE_LIST.cleaning.apartmentReady.label, desc: `From ${formatPrice(PRICE_LIST.cleaning.apartmentReady['1'])} — Adds cabinet fronts, splashback, doors, switches and interior window glass.` },
+            { name: PRICE_LIST.cleaning.moveInOut.label, desc: `From ${formatPrice(PRICE_LIST.cleaning.moveInOut['1'])} — Adds empty cupboard interiors, appliance exteriors, skirting boards and spot-cleaning.` },
+            { name: PRICE_LIST.cleaning.deep.label, desc: `From ${formatPrice(PRICE_LIST.cleaning.deep['1'])} — Intensive kitchen degreasing, bathroom descaling, interior window tracks and detailed edges.` }
           ]
         },
         {
-          title: 'Repairs & Maintenance',
+          title: 'Repairs & Assessments',
           items: [
-            { name: 'General Handyman Services', desc: 'Hardware fixtures, minor adjustments, shelf hanging, and practical property repairs.' },
-            { name: 'Plumbing Repairs', desc: 'Fixing leaking taps, pipe blockages, toilet siphon issues, and water pressure faults.' },
-            { name: 'Electrical Repairs', desc: 'Safety testing, socket replacements, switch repairs, and light fittings by qualified pros.' },
-            { name: 'Doors, Locks & Fittings', desc: 'Re-aligning sticking doors, deadbolt replacement, and handle maintenance.' },
-            { name: 'Painting & Touch-Ups', desc: 'Patch repairs, interior wall refreshing, baseboard repainting, and scuff restoration.' },
-            { name: 'Air Conditioning Servicing', desc: 'Filter cleaning, coil washing, refrigerant level checks, and drainage clearing.' },
-            { name: 'Minor Tiling Repairs', desc: 'Regrouting, replacing cracked individual tiles, and wet area sealing.' }
+            { name: 'Minor Repair', desc: `${formatFromPrice(PRICE_LIST.fromPrices.minorRepair)} for one small defined fault; replacement parts quoted separately.` },
+            { name: 'Property Condition Assessment', desc: `${formatFromPrice(PRICE_LIST.fromPrices.assessment)} for a structured on-site condition check and written summary.` }
           ]
         }
       ]
@@ -87,91 +81,95 @@ export const SITE_CONFIG = {
       name: 'Civitas Care',
       subtitle: 'Planned Property Care & Preventive Maintenance',
       headline: 'Better Property Care Begins Before Problems Become Expensive.',
-      summary: 'Property maintenance should not begin only when something goes wrong. Civitas Care provides structured inspections, maintenance planning and service coordination to help property owners stay informed and organized.',
+      summary: 'Civitas Care provides scheduled inspections, maintenance planning and service coordination to help property owners stay informed and organized.',
       url: '/services/civitas-care/',
-      badge: 'Recurring Subscription',
+      badge: 'Monthly Care',
       accent: 'terracotta',
       image: '/assets/Images/maintenance officer.png',
       plans: [
         {
-          id: 'essential',
-          name: 'Essential Care',
-          price: 'GH₵350',
-          frequency: '/ month',
-          description: 'For property owners who need basic scheduled oversight.',
+          id: 'care-essential',
+          name: 'Care Essential',
+          price: formatFromPrice(PRICE_LIST.fromPrices.careEssential),
+          frequency: 'per month',
+          description: 'For property owners who need scheduled monthly condition checks and repair coordination.',
           features: [
             '1 scheduled condition inspection per month',
-            'Brief condition summary report',
+            'Written condition summary report with photos',
             'Preventive maintenance reminders',
             'Coordination of approved repair work',
-            'Standard customer support'
+            '30 days written notice before any price change'
           ],
           idealFor: 'Apartments, small residential homes, or light-use properties.',
           isPopular: false
         },
         {
-          id: 'standard',
-          name: 'Standard Care',
-          price: 'GH₵650',
-          frequency: '/ month',
-          description: 'For properties requiring more frequent attention and detailed reporting.',
+          id: 'care-plus',
+          name: 'Care Plus',
+          price: formatFromPrice(PRICE_LIST.fromPrices.carePlus),
+          frequency: 'per month',
+          description: 'For properties requiring more frequent attention, detailed reporting and priority coordination.',
           features: [
             'Up to 2 scheduled inspections per month',
-            'Detailed photographic reporting',
+            'Detailed photographic condition reporting',
             'Comprehensive maintenance scheduling',
-            'Priority coordination of service requests',
-            'Dedicated care advisor'
+            'Priority coordination of approved service requests',
+            'Dedicated care coordinator'
           ],
-          idealFor: 'Family homes, rental investments, and properties with busy occupants.',
+          idealFor: 'Family homes, rental investments, and busy households.',
           isPopular: true
-        },
-        {
-          id: 'premium',
-          name: 'Premium Care',
-          price: 'From GH₵1,200',
-          frequency: '/ month',
-          description: 'For properties requiring an active, involved maintenance coordination arrangement.',
-          features: [
-            'Up to 4 scheduled inspections per month',
-            'Enhanced digital condition reporting',
-            'Planned preventive maintenance program',
-            'Priority dispatch for approved service requests',
-            'Assigned personal relationship contact',
-            'Vendor supervision on approved contractor visits'
-          ],
-          idealFor: 'Executive residences, multi-unit buildings, or high-value estates.',
-          isPopular: false
         }
       ]
     },
     {
       id: 'property-watch',
       name: 'Civitas Property Watch',
-      subtitle: 'Property Inspections & Independent Oversight',
+      subtitle: 'Scheduled Visual Checks & Photo Reporting',
       headline: 'Your Property. Better Visibility.',
-      summary: 'Whether you live nearby, elsewhere in Ghana, or abroad, scheduled inspections and independent reporting give you unbiased visibility over your property’s true condition.',
+      summary: 'Whether you live nearby, elsewhere in Ghana, or abroad, scheduled visual checks with dated photographs give you clear visibility over your property’s condition.',
       url: '/services/property-watch/',
       badge: 'Diaspora & Remote Oversight',
       accent: 'emerald',
       image: '/assets/Images/electrical inspection.png',
+      plans: [
+        {
+          id: 'watch-monthly',
+          name: 'Watch Monthly',
+          price: formatFromPrice(PRICE_LIST.fromPrices.watchMonthly),
+          frequency: 'per month',
+          description: 'Scheduled monthly visual check of accessible interior and exterior spaces with dated photos.'
+        },
+        {
+          id: 'watch-plus',
+          name: 'Watch Plus',
+          price: formatFromPrice(PRICE_LIST.fromPrices.watchPlus),
+          frequency: 'per month',
+          description: 'Enhanced visual checks with detailed room-by-room photo logs and follow-up coordination.'
+        },
+        {
+          id: 'condition-assessment',
+          name: 'One-Time Property Condition Assessment',
+          price: formatFromPrice(PRICE_LIST.fromPrices.assessment),
+          frequency: 'per visit',
+          description: 'Single scheduled visual walk-through and written condition assessment.'
+        }
+      ],
       offerings: [
-        { title: 'Basic Property Inspections', desc: 'Scheduled visual walk-through of accessible interior and exterior spaces.' },
-        { title: 'Detailed Condition Reports', desc: 'Structured observations supported by dated photographs and maintenance recommendations.' },
-        { title: 'Monthly Property Oversight', desc: 'Regular recurring checks keeping non-resident owners informed on month-to-month condition.' },
-        { title: 'Vacant Property Monitoring', desc: 'Scheduled visits for unoccupied homes to detect damp, leaks, weather intrusion, or pests early.' }
+        { title: 'Scheduled Visual Checks', desc: 'Walk-through visual inspection of accessible interior and exterior spaces.' },
+        { title: 'Dated Photo Reports', desc: 'Structured observations supported by dated photographs and practical maintenance notes.' },
+        { title: 'Watch Monthly & Watch Plus', desc: `Recurring monthly checks starting ${formatFromPrice(PRICE_LIST.fromPrices.watchMonthly, 'per month').toLowerCase()}.` },
+        { title: 'Vacant Home Checks', desc: 'Scheduled visits for unoccupied homes to spot visible leaks, damp, or weather wear early.' }
       ],
       targetAudience: [
         'Property owners living in the diaspora / abroad',
         'Owners of temporarily vacant or seasonal homes',
         'Landlords living in different regions or cities',
-        'Families managing inherited or shared estate properties',
-        'Property managers requiring independent quality checks'
+        'Families managing shared estate properties'
       ],
-      disclaimer: 'Property Watch is an independent visual inspection and reporting service. It is not continuous security guard surveillance, structural engineering certification, building insurance, or a guarantee against theft, damage or deterioration.'
+      disclaimer: HOW_WE_SET_PRICES.propertyWatchNotice
     }
   ],
 
-  // Service Locations in Ghana
   serviceLocations: {
     accra: [
       { name: 'East Legon', status: 'Core Coverage' },
@@ -192,7 +190,6 @@ export const SITE_CONFIG = {
     ]
   },
 
-  // Practical Insights Articles
   insights: [
     {
       slug: 'how-often-should-you-deep-clean',
@@ -200,7 +197,7 @@ export const SITE_CONFIG = {
       category: 'Cleaning Care',
       readTime: '4 min read',
       date: 'November 2026',
-      excerpt: 'Routine sweeping and mopping maintain appearances, but deep cleaning targets grime, unseen bacteria, and hidden fabric allergens.',
+      excerpt: 'Routine sweeping and mopping maintain appearances, but deep cleaning targets built-up grease, bathroom scale, and window tracks.',
       image: '/assets/Images/Commercial cleaning.png'
     },
     {
@@ -227,7 +224,7 @@ export const SITE_CONFIG = {
       category: 'Diaspora Oversight',
       readTime: '6 min read',
       date: 'November 2026',
-      excerpt: 'Practical strategies for Ghanaian non-residents to verify property status, avoid family friction, and maintain accountability across time zones.',
+      excerpt: 'Practical strategies for Ghanaian non-residents to verify property condition with dated photos and maintain clear records across time zones.',
       image: '/assets/Images/architectural design.png'
     },
     {
@@ -283,7 +280,6 @@ export function createWhatsAppUrl({
   planName = '',
   customMessage = ''
 } = {}) {
-  const isPreLaunch = SITE_CONFIG.mode === 'pre-launch';
   let message = '';
 
   if (customMessage) {
@@ -291,23 +287,22 @@ export function createWhatsAppUrl({
   } else if (planName) {
     message = `Hello Civitas Estate & Maintenance,
 
-I would like to enquire about the Civitas Care plan.
+I would like to enquire about the following plan:
 *Plan:* ${planName}
 *Property Location:* ${location || 'Accra / Tema'}
 *My Name:* ${name || '[Please advise]'}
-${isPreLaunch ? '\nI am registering my interest for the planned January 2027 launch.' : ''}
 
-Please share details on enrollment terms and availability.`;
+Please share details on scope, terms and availability.`;
   } else {
     message = `Hello Civitas Estate & Maintenance,
 
-I would like to request ${isPreLaunch ? 'an advance quotation / register interest' : 'a quotation'}.
+I would like to request a written quotation.
 
 *Service Requested:* ${service}
 *Property Type:* ${propertyType}
 *Location:* ${location || 'Accra / Tema'}
 ${preferredDate ? `*Preferred Date:* ${preferredDate}\n` : ''}${name ? `*Name:* ${name}\n` : ''}${description ? `*Details:* ${description}\n` : ''}
-${isPreLaunch ? '*(Enquiry for Pre-Launch / January 2027 bookings)*\n' : ''}Please advise on service availability and quotation steps.`;
+Please advise on service availability and quotation steps.`;
   }
 
   const encoded = encodeURIComponent(message.trim());

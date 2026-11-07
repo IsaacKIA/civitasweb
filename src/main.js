@@ -1,13 +1,22 @@
 import { SITE_CONFIG, createWhatsAppUrl } from './site-config.js';
-import { calculateSmartQuote, buildWhatsAppQuotationMessage, SMARTQUOTE_CONFIG } from './smartquote-engine.js';
+import {
+  PRICE_LIST,
+  PRICE_VERSION_LINE,
+  formatPrice,
+  formatFromPrice,
+} from './config/pricing.ts';
+import { hydratePriceTokens, renderFullPricingSection } from './pricing-ui.ts';
+import { mountSmartQuoteApp } from './smartquote-ui.ts';
+import { mountAdminQuotesApp } from './admin-quotes.ts';
+import { initInteractiveExperience } from './interactive-experience.ts';
 
 document.addEventListener('DOMContentLoaded', () => {
+  hydratePriceTokens();
+  initPricingSections();
   initMobileMenu();
   initFaqAccordion();
   initQuoteModal();
   initFormHandlers();
-  initPreLaunchModeUI();
-  initModeSwitcherBadge();
   initVideoShowcaseModal();
   initHeroVideoControls();
   initBeforeAfterSlider();
@@ -15,12 +24,25 @@ document.addEventListener('DOMContentLoaded', () => {
   initSuburbCoverageChecker();
   initAnimatedStatsCounter();
   initSmartQuote();
-  initHealthScoreAudit();
   initReportSimulator();
+  initInteractiveExperience();
   initGlobalWhatsAppWidget();
-  initHolidayQuoteForm();
 });
 
+/**
+ * Mounts dynamic pricing tables, scope matrices, and admin dashboard if present on the page
+ */
+function initPricingSections() {
+  const pricingCatalogue = document.getElementById('civitasPricingCatalogue');
+  if (pricingCatalogue) {
+    renderFullPricingSection(pricingCatalogue);
+  }
+
+  const adminMount = document.getElementById('adminQuotesMount');
+  if (adminMount) {
+    mountAdminQuotesApp(adminMount);
+  }
+}
 
 /**
  * Initializes mobile navigation drawer and backdrop
@@ -57,7 +79,6 @@ function initMobileMenu() {
     }
   });
 
-  // Close drawer on link click
   const drawerLinks = drawer.querySelectorAll('a');
   drawerLinks.forEach(link => {
     link.addEventListener('click', closeDrawer);
@@ -80,7 +101,6 @@ function initFaqAccordion() {
     questionBtn.addEventListener('click', () => {
       const isActive = item.classList.contains('active');
 
-      // Close all other items for a clean single-open behavior
       faqItems.forEach(other => {
         other.classList.remove('active');
         const otherBtn = other.querySelector('.faq-question');
@@ -106,7 +126,16 @@ function initQuoteModal() {
   const openButtons = document.querySelectorAll('[data-open-quote]');
   const closeBtn = modal?.querySelector('.modal-close');
 
-  if (!modal) return;
+  if (!modal) {
+    // If no modal on page, route [data-open-quote] buttons directly to /get-a-quote/
+    openButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = '/get-a-quote/';
+      });
+    });
+    return;
+  }
 
   const openModal = (servicePrefill = '', suburbPrefill = '') => {
     modal.classList.add('open');
@@ -146,7 +175,6 @@ function initQuoteModal() {
     if (e.target === modal) closeModal();
   });
 
-  // Handle modal quote form submission -> WhatsApp redirect
   const modalForm = modal.querySelector('form');
   if (modalForm) {
     modalForm.addEventListener('submit', (e) => {
@@ -178,7 +206,6 @@ function initQuoteModal() {
  * Contact & Enquiry Page Forms Handler
  */
 function initFormHandlers() {
-  // General Contact Form
   const contactForm = document.getElementById('contactEnquiryForm');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
@@ -196,7 +223,6 @@ function initFormHandlers() {
     });
   }
 
-  // Civitas Care Plan Enquire Buttons
   const careButtons = document.querySelectorAll('[data-care-plan]');
   careButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -207,7 +233,6 @@ function initFormHandlers() {
     });
   });
 
-  // Technician / Contractor Onboarding Form
   const talentForm = document.getElementById('talentOnboardingForm');
   if (talentForm) {
     talentForm.addEventListener('submit', (e) => {
@@ -236,30 +261,6 @@ Please advise on your contractor onboarding and vetting process.`;
 }
 
 /**
- * Pre-launch vs Live mode UI adaptation
- */
-function initPreLaunchModeUI() {
-  const preLaunchBanner = document.querySelector('.pre-launch-bar');
-  if (preLaunchBanner) {
-    preLaunchBanner.remove();
-  }
-
-  // Ensure high-converting commercial CTAs are active everywhere
-  document.querySelectorAll('[data-mode-cta]').forEach(el => {
-    if (el.getAttribute('data-mode-cta') === 'primary') {
-      el.textContent = 'Request a Free Quote';
-    } else if (el.getAttribute('data-mode-cta') === 'secondary') {
-      el.textContent = 'Book Immediate Service';
-    }
-  });
-}
-
-function initModeSwitcherBadge() {
-  const switcher = document.getElementById('modeSwitcherBtn');
-  if (switcher) switcher.remove();
-}
-
-/**
  * 1. Video Lightbox Modal for Field Operations Showcase
  */
 function initVideoShowcaseModal() {
@@ -267,7 +268,6 @@ function initVideoShowcaseModal() {
   let videoPlayer = document.getElementById('videoLightboxPlayer') || document.getElementById('modalVideoPlayer');
   let closeBtn = document.getElementById('videoLightboxClose') || document.getElementById('videoModalClose');
 
-  // If modal doesn't exist on page, dynamically create it
   if (!modal) {
     modal = document.createElement('div');
     modal.className = 'video-lightbox';
@@ -315,7 +315,6 @@ function initVideoShowcaseModal() {
     videoPlayer.load();
   };
 
-  // Global click delegate for any video triggers
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-video-src], .video-play-btn, .video-trigger-link');
     if (trigger) {
@@ -346,7 +345,6 @@ function initHeroVideoControls() {
   const togglePlayBtn = document.getElementById('heroVideoPlayBtn');
   const toggleMuteBtn = document.getElementById('heroVideoMuteBtn');
 
-  // Autoplay all ambient videos safely with muted property
   const ambientVideos = document.querySelectorAll('.hero-video-background, .hero-showcase-video, video[autoplay]');
   ambientVideos.forEach(v => {
     v.muted = true;
@@ -408,7 +406,7 @@ function initBeforeAfterSlider() {
 
   const afterWrap = slider.querySelector('.ba-image-after-wrap');
   const handle = slider.querySelector('.ba-slider-handle');
-  const afterImg = afterWrap.querySelector('.ba-image');
+  const afterImg = afterWrap?.querySelector('.ba-image');
   const updateSliderWidth = () => {
     if (afterImg && slider) {
       afterImg.style.width = `${slider.offsetWidth}px`;
@@ -460,103 +458,67 @@ function initBeforeAfterSlider() {
 }
 
 /**
- * 4. Interactive "Build Your Property Care Plan" Estimator
+ * 4. Care & Property Watch Starting Price Selector (reads strictly from PRICE_LIST)
  */
 function initPlanEstimator() {
   const estimatorBox = document.getElementById('planEstimatorBox');
   if (!estimatorBox) return;
 
-  const propCards = estimatorBox.querySelectorAll('.prop-type-card');
   const tierCards = estimatorBox.querySelectorAll('.tier-option-card');
-  const addonChecks = estimatorBox.querySelectorAll('.addon-input');
   const priceDisplay = document.getElementById('estimatorPriceValue');
   const waBtn = document.getElementById('estimatorWhatsAppBtn');
 
-  // Base pricing matrix (GH₵ / month)
-  const basePrices = {
-    apartment: { essential: 350, standard: 650, executive: 1100 },
-    house: { essential: 450, standard: 850, executive: 1450 },
-    villa: { essential: 700, standard: 1350, executive: 2200 },
-    commercial: { essential: 850, standard: 1600, executive: 2600 }
+  const tierConfig = {
+    careEssential: {
+      label: 'Care Essential',
+      price: PRICE_LIST.fromPrices.careEssential,
+    },
+    carePlus: {
+      label: 'Care Plus',
+      price: PRICE_LIST.fromPrices.carePlus,
+    },
+    watchMonthly: {
+      label: 'Property Watch Monthly',
+      price: PRICE_LIST.fromPrices.watchMonthly,
+    },
+    watchPlus: {
+      label: 'Property Watch Plus',
+      price: PRICE_LIST.fromPrices.watchPlus,
+    }
   };
 
-  let selectedProp = 'apartment';
-  let selectedTier = 'standard';
+  let selectedTier = 'careEssential';
 
-  const calculateTotal = () => {
-    let total = basePrices[selectedProp][selectedTier] || 650;
-
-    addonChecks.forEach(chk => {
-      if (chk.checked) {
-        total += parseInt(chk.value, 10) || 0;
-      }
-    });
-
+  const updateEstimator = () => {
+    const current = tierConfig[selectedTier] || tierConfig.careEssential;
     if (priceDisplay) {
-      priceDisplay.textContent = `GH₵${total.toLocaleString()}`;
+      priceDisplay.textContent = formatFromPrice(current.price);
     }
 
-    // Update WhatsApp pre-filled action link
     if (waBtn) {
-      const propNames = {
-        apartment: 'Modern Apartment / Flat',
-        house: '3–4 Bedroom Residential Home',
-        villa: 'Luxury Estate / Multi-Storey Villa',
-        commercial: 'Commercial Office / Short-Let Facility'
-      };
-
-      const tierNames = {
-        essential: 'Essential Care Plan (Monthly)',
-        standard: 'Standard Care Plan (Bi-Weekly)',
-        executive: 'Executive Comprehensive Plan (Full-Service)'
-      };
-
-      const selectedAddons = [];
-      addonChecks.forEach(chk => {
-        if (chk.checked) selectedAddons.push(chk.dataset.label);
-      });
-
-      const message = `Hello Civitas Estate & Maintenance! 👋
-I just configured a tailored Property Care Plan on your website:
-
-• Property Type: ${propNames[selectedProp]}
-• Plan Tier: ${tierNames[selectedTier]}
-• Add-On Services: ${selectedAddons.length ? selectedAddons.join(', ') : 'None selected'}
-• Estimated Plan Total: GH₵${total.toLocaleString()} / month
-
-I would like to confirm service availability and lock in the 2026/2027 introductory reservation.`;
+      const message = `Hello Civitas Estate & Maintenance,
+I would like to enquire about ${current.label} (${formatFromPrice(current.price, 'per month')}).
+${PRICE_VERSION_LINE}
+Please share the full written scope and availability for my property in Accra / Tema.`;
 
       waBtn.href = createWhatsAppUrl({ customMessage: message });
     }
   };
 
-  propCards.forEach(card => {
-    card.addEventListener('click', () => {
-      propCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      selectedProp = card.dataset.propType;
-      calculateTotal();
-    });
-  });
-
   tierCards.forEach(card => {
     card.addEventListener('click', () => {
       tierCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      selectedTier = card.dataset.tier;
-      calculateTotal();
+      selectedTier = card.dataset.tier || 'careEssential';
+      updateEstimator();
     });
   });
 
-  addonChecks.forEach(chk => {
-    chk.addEventListener('change', calculateTotal);
-  });
-
-  calculateTotal();
+  updateEstimator();
 }
 
 /**
- * 5. Interactive Suburb & Geo-Coverage Checker + Priority Dispatch Radar
+ * 5. Interactive Suburb & Geo-Coverage Checker
  */
 function initSuburbCoverageChecker() {
   const chips = document.querySelectorAll('.suburb-chip');
@@ -564,17 +526,17 @@ function initSuburbCoverageChecker() {
   const bannerTime = document.getElementById('activeSuburbDispatch');
 
   const suburbData = {
-    'East Legon': { dispatch: '20–35 mins', zone: 'Zone A (Premier Residential)' },
-    'Airport Residential': { dispatch: '15–30 mins', zone: 'Zone A (Central Core)' },
-    'Cantonments': { dispatch: '15–25 mins', zone: 'Zone A (Embassy Enclave)' },
-    'Trasacco Valley': { dispatch: '30–45 mins', zone: 'Zone A (Luxury Gated)' },
-    'Labone': { dispatch: '15–30 mins', zone: 'Zone A (Residential)' },
-    'Ridge': { dispatch: '15–25 mins', zone: 'Zone A (Executive Enclave)' },
-    'Dzorwulu': { dispatch: '20–35 mins', zone: 'Zone B (West Central)' },
-    'Roman Ridge': { dispatch: '20–30 mins', zone: 'Zone A (Central)' },
-    'Spintex': { dispatch: '25–40 mins', zone: 'Zone B (Commercial Corridor)' },
-    'Sakumono': { dispatch: '30–45 mins', zone: 'Zone B (Coastal Residential)' },
-    'Tema Comm 1–25': { dispatch: '25–45 mins', zone: 'Zone C (Tema Metropolitan)' }
+    'East Legon': { dispatch: 'Scheduled Coverage', zone: 'Accra Core Coverage' },
+    'Airport Residential': { dispatch: 'Scheduled Coverage', zone: 'Accra Core Coverage' },
+    'Cantonments': { dispatch: 'Scheduled Coverage', zone: 'Accra Core Coverage' },
+    'Trasacco Valley': { dispatch: 'Scheduled Coverage', zone: 'Accra Core Coverage' },
+    'Labone': { dispatch: 'Scheduled Coverage', zone: 'Accra Core Coverage' },
+    'Ridge': { dispatch: 'Scheduled Coverage', zone: 'Accra Core Coverage' },
+    'Dzorwulu': { dispatch: 'Scheduled Coverage', zone: 'Accra Core Coverage' },
+    'Roman Ridge': { dispatch: 'Scheduled Coverage', zone: 'Accra Core Coverage' },
+    'Spintex': { dispatch: 'Scheduled Coverage', zone: 'Accra East Corridor' },
+    'Sakumono': { dispatch: 'Scheduled Coverage', zone: 'Tema & Coastal Corridor' },
+    'Tema Comm 1–25': { dispatch: 'Scheduled Coverage', zone: 'Tema Metropolitan Coverage' }
   };
 
   if (chips.length) {
@@ -586,53 +548,7 @@ function initSuburbCoverageChecker() {
         const name = chip.getAttribute('data-suburb');
         if (bannerName) bannerName.textContent = name;
         if (bannerTime && suburbData[name]) {
-          bannerTime.textContent = `Average Rapid Dispatch: ${suburbData[name].dispatch} • ${suburbData[name].zone}`;
-        }
-      });
-    });
-  }
-
-  // Priority Dispatch Radar Dashboard
-  const radarBtns = document.querySelectorAll('.suburb-radar-btn');
-  const radarSuburbName = document.getElementById('radarSuburbName');
-  const radarSlaTime = document.getElementById('radarSlaTime');
-  const radarZoneName = document.getElementById('radarZoneName');
-  const radarUnitsOnDuty = document.getElementById('radarUnitsOnDuty');
-  const radarTradesActive = document.getElementById('radarTradesActive');
-  const radarZoneDesc = document.getElementById('radarZoneDesc');
-  const radarDispatchBtn = document.getElementById('radarDispatchActionBtn');
-
-  const zoneDescriptions = {
-    'East Legon': 'Primary residential coverage sector with permanent mobile crew stationed along Boundary Road and Adjiringanor Corridor.',
-    'Airport Residential': 'Central metropolitan core with rapid-access deployment for diplomatic residences, luxury penthouses, and corporate villas.',
-    'Cantonments': 'High-security embassy and residential district with dedicated hydraulic and technical diagnostics specialists.',
-    'Trasacco Valley': 'Gated private estate enclave with dedicated property watch inspectors, solar technicians, and facade cleaning teams.',
-    'Ridge': 'Financial and ministerial district hub equipped for corporate facility upkeep, high-rise glass washing, and boardrooms.',
-    'Spintex': 'High-density commercial-residential corridor with rapid AC, electrical, and scheduled deep sanitization units.',
-    'Tema Comm 1–25': 'Comprehensive metropolitan coverage extending through industrial zones, coastal properties, and master-planned residential blocks.'
-  };
-
-  if (radarBtns.length) {
-    radarBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        radarBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const suburb = btn.getAttribute('data-suburb');
-        const sla = btn.getAttribute('data-sla');
-        const zone = btn.getAttribute('data-zone');
-        const units = btn.getAttribute('data-units');
-        const trades = btn.getAttribute('data-trades');
-
-        if (radarSuburbName) radarSuburbName.textContent = btn.querySelector('span')?.textContent || suburb;
-        if (radarSlaTime) radarSlaTime.textContent = sla;
-        if (radarZoneName) radarZoneName.textContent = zone;
-        if (radarUnitsOnDuty) radarUnitsOnDuty.textContent = units;
-        if (radarTradesActive) radarTradesActive.textContent = trades;
-        if (radarZoneDesc && zoneDescriptions[suburb]) radarZoneDesc.textContent = zoneDescriptions[suburb];
-        if (radarDispatchBtn) {
-          radarDispatchBtn.setAttribute('data-suburb', suburb);
-          radarDispatchBtn.textContent = `Book Priority Dispatch in ${suburb}`;
+          bannerTime.textContent = `${suburbData[name].dispatch} • ${suburbData[name].zone} (Local transport included in cleaning prices)`;
         }
       });
     });
@@ -660,7 +576,6 @@ function initAnimatedStatsCounter() {
         const updateCounter = (currentTime) => {
           const elapsed = currentTime - startTime;
           const progress = Math.min(elapsed / duration, 1);
-          // Ease out cubic
           const easeProgress = 1 - Math.pow(1 - progress, 3);
           const current = Math.floor(start + (target - start) * easeProgress);
 
@@ -683,459 +598,12 @@ function initAnimatedStatsCounter() {
 }
 
 /**
- * 7. CIVITAS SMARTQUOTE™ — Interactive Service Pricing & Quotation Engine
+ * 7. CIVITAS SMART QUOTE — Mounts the fairness engine into #smartQuoteMount or #smartQuoteApp
  */
 function initSmartQuote() {
-  const container = document.getElementById('smartQuoteApp');
-  if (!container) return;
-
-  // Track user interaction state
-  const state = {
-    currentStep: 1,
-    serviceId: 'standard-cleaning',
-    propertyType: 'villa',
-    bedrooms: '3-bed',
-    bathrooms: '3',
-    condition: 'well-maintained',
-    frequency: 'one-off',
-    propertySize: 'under-250',
-    inspectionType: 'standard-audit',
-    repairCategory: 'plumbing',
-    repairScope: '1-2',
-    repairNotes: '',
-    locationZone: 'accra-core',
-    addons: []
-  };
-
-  // DOM Elements
-  const progressBar = document.getElementById('sqProgressBar');
-  const stepButtons = container.querySelectorAll('.sq-step-node');
-  const panes = container.querySelectorAll('.sq-pane');
-  const backBtn = document.getElementById('sqNavBackBtn');
-  const nextBtn = document.getElementById('sqNavNextBtn');
-
-  // Sidebar Elements
-  const livePriceDisplay = document.getElementById('sqLivePriceDisplay');
-  const liveAmountNum = document.getElementById('sqLiveAmountNum');
-  const livePriceSubtext = document.getElementById('sqLivePriceSubtext');
-  const liveServiceLabel = document.getElementById('sqLiveServiceLabel');
-  const livePropertyLabel = document.getElementById('sqLivePropertyLabel');
-  const liveLocationLabel = document.getElementById('sqLiveLocationLabel');
-  const liveAddonsLabel = document.getElementById('sqLiveAddonsLabel');
-  const sidebarWhatsAppBtn = document.getElementById('sqSidebarWhatsAppBtn');
-
-  // Step 5 Result Elements
-  const heroAmountNum = document.getElementById('sqHeroAmountNum');
-  const heroStatusTag = document.getElementById('sqHeroStatusTag');
-  const resService = document.getElementById('sqResService');
-  const resProperty = document.getElementById('sqResProperty');
-  const resLocation = document.getElementById('sqResLocation');
-  const resAddons = document.getElementById('sqResAddons');
-  const finalWhatsAppBtn = document.getElementById('sqFinalWhatsAppBtn');
-  const copyQuoteBtn = document.getElementById('sqCopyQuoteBtn');
-  const restartBtn = document.getElementById('sqRestartBtn');
-  const toast = document.getElementById('sqToast');
-
-  // Dynamic Form Field Containers
-  const cleaningFields = document.getElementById('sqCleaningFields');
-  const inspectionFields = document.getElementById('sqInspectionFields');
-  const repairsFields = document.getElementById('sqRepairsFields');
-  const cleaningAddons = document.getElementById('sqCleaningAddons');
-  const inspectionAddons = document.getElementById('sqInspectionAddons');
-  const repairsAddonsNotice = document.getElementById('sqRepairsAddonsNotice');
-
-  // Dispatch Analytics Helper
-  const triggerEvent = (eventName, detail = {}) => {
-    try {
-      const evt = new CustomEvent(eventName, { detail });
-      window.dispatchEvent(evt);
-    } catch (_) {}
-  };
-
-  // Step Navigation Logic
-  const goToStep = (targetStep) => {
-    if (targetStep < 1 || targetStep > 5) return;
-    state.currentStep = targetStep;
-
-    // Update Stepper Progress
-    const progressPercentages = { 1: '20%', 2: '40%', 3: '60%', 4: '80%', 5: '100%' };
-    if (progressBar) progressBar.style.width = progressPercentages[targetStep];
-
-    stepButtons.forEach(btn => {
-      const step = parseInt(btn.getAttribute('data-step'), 10);
-      btn.classList.remove('active', 'completed');
-      btn.setAttribute('aria-selected', 'false');
-
-      if (step === targetStep) {
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected', 'true');
-      } else if (step < targetStep) {
-        btn.classList.add('completed');
-      }
-    });
-
-    // Toggle Panes
-    panes.forEach(pane => {
-      pane.classList.remove('active');
-      if (pane.id === `sqPane${targetStep}`) {
-        pane.classList.add('active');
-      }
-    });
-
-    // Update Navigation Buttons
-    if (backBtn) {
-      backBtn.disabled = targetStep === 1;
-    }
-
-    if (nextBtn) {
-      if (targetStep === 1) {
-        nextBtn.innerHTML = '<span>Continue to Property Details</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
-        nextBtn.style.display = 'inline-flex';
-      } else if (targetStep === 2) {
-        nextBtn.innerHTML = '<span>Continue to Location</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
-        nextBtn.style.display = 'inline-flex';
-      } else if (targetStep === 3) {
-        nextBtn.innerHTML = '<span>Continue to Add-ons</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
-        nextBtn.style.display = 'inline-flex';
-      } else if (targetStep === 4) {
-        nextBtn.innerHTML = '<span>Get My Estimate</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
-        nextBtn.style.display = 'inline-flex';
-      } else if (targetStep === 5) {
-        nextBtn.style.display = 'none'; // Replaced by primary conversion CTA in pane 5
-      }
-    }
-
-    triggerEvent('smartquote_step_completed', { step: targetStep });
-
-    // Scroll smoothly to top of card on mobile
-    if (window.innerWidth < 900 && targetStep > 1) {
-      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  // Switch Sub-form Views Based On Service Category
-  const syncServicePanels = () => {
-    const isInspection = state.serviceId === 'condition-inspection';
-    const isRepairs = state.serviceId === 'minor-repairs';
-
-    // Step 2 Form Switching
-    if (cleaningFields) cleaningFields.style.display = (!isInspection && !isRepairs) ? 'block' : 'none';
-    if (inspectionFields) inspectionFields.style.display = isInspection ? 'block' : 'none';
-    if (repairsFields) repairsFields.style.display = isRepairs ? 'block' : 'none';
-
-    // Step 4 Add-ons Switching
-    if (cleaningAddons) cleaningAddons.style.display = (!isInspection && !isRepairs) ? 'grid' : 'none';
-    if (inspectionAddons) inspectionAddons.style.display = isInspection ? 'grid' : 'none';
-    if (repairsAddonsNotice) repairsAddonsNotice.style.display = isRepairs ? 'block' : 'none';
-
-    // Purge incompatible add-ons
-    const validAddonIds = Object.keys(SMARTQUOTE_CONFIG.addons).filter(id => {
-      const addon = SMARTQUOTE_CONFIG.addons[id];
-      return addon.categories.includes(state.serviceId);
-    });
-    state.addons = state.addons.filter(id => validAddonIds.includes(id));
-
-    // Update active state of addon checkboxes
-    container.querySelectorAll('.sq-addon-card').forEach(card => {
-      const addonId = card.getAttribute('data-addon-id');
-      card.classList.toggle('selected', state.addons.includes(addonId));
-    });
-  };
-
-  // Recalculate Live Quote and Update All UI Touchpoints
-  const recalculate = () => {
-    const result = calculateSmartQuote({
-      serviceId: state.serviceId,
-      propertyType: state.propertyType,
-      bedrooms: state.bedrooms,
-      bathrooms: state.bathrooms,
-      condition: state.condition,
-      frequency: state.frequency,
-      propertySize: state.propertySize,
-      inspectionType: state.inspectionType,
-      locationZone: state.locationZone,
-      addons: state.addons,
-      repairCategory: state.repairCategory,
-      customerNotes: state.repairNotes
-    });
-
-    const isInspection = state.serviceId === 'condition-inspection';
-    const isRepairs = state.serviceId === 'minor-repairs';
-
-    // Generate Human-Readable Summaries
-    let propertySummary = '';
-    if (isRepairs) {
-      const catLabels = {
-        'plumbing': 'Plumbing & Drainage',
-        'electrical': 'Electrical & Lighting',
-        'hvac': 'AC Servicing & Gas',
-        'carpentry': 'Carpentry & Locks',
-        'multi-trade': 'Multi-Trade Punch List'
-      };
-      propertySummary = `${catLabels[state.repairCategory] || 'General Repairs'} (${state.repairScope} faults)`;
-    } else if (isInspection) {
-      const sizeLabels = {
-        'under-250': 'Up to 250 m²',
-        '250-500': '250–500 m²',
-        'over-500': '500+ m²'
-      };
-      const scopeLabels = {
-        'standard-audit': 'Routine Condition Audit',
-        'pre-purchase': 'Pre-Purchase Due Diligence',
-        'diaspora-oversight': 'Diaspora Remote Oversight'
-      };
-      propertySummary = `${scopeLabels[state.inspectionType] || 'Inspection'} (${sizeLabels[state.propertySize] || 'Standard'})`;
-    } else {
-      const propLabels = {
-        'villa': 'Villa / House',
-        'apartment': 'Luxury Apartment',
-        'townhouse': 'Townhouse',
-        'commercial': 'Commercial / Office'
-      };
-      propertySummary = `${state.bedrooms.replace('-', ' ')}, ${state.bathrooms} Bath (${propLabels[state.propertyType] || 'Residential'})`;
-    }
-
-    const addonNames = state.addons.map(id => SMARTQUOTE_CONFIG.addons[id]?.name).filter(Boolean);
-    const addonsSummary = addonNames.length > 0 ? addonNames.join(', ') : 'None selected';
-
-    // Update Sidebar Scorecard
-    if (liveServiceLabel) liveServiceLabel.textContent = result.serviceName || 'Property Care';
-    if (livePropertyLabel) livePropertyLabel.textContent = propertySummary;
-    if (liveLocationLabel) liveLocationLabel.textContent = result.locationName || 'Accra / Tema';
-    if (liveAddonsLabel) {
-      liveAddonsLabel.textContent = state.addons.length > 0 ? `${state.addons.length} item(s) (+GH₵ ${result.addonsTotal})` : '0 selected';
-    }
-
-    if (result.status === 'estimate') {
-      if (livePriceDisplay) {
-        livePriceDisplay.innerHTML = `<span class="sq-c-symbol">GH₵</span><span id="sqLiveAmountNum">${result.indicativePrice.toLocaleString()}</span>`;
-      }
-      if (livePriceSubtext) {
-        livePriceSubtext.textContent = result.logisticsCost > 0 ? `Includes GH₵ ${result.logisticsCost} logistics allowance` : 'Includes labour, materials & equipment';
-      }
-      if (heroAmountNum) {
-        heroAmountNum.textContent = result.indicativePrice.toLocaleString();
-        const heroDisplay = document.getElementById('sqHeroPriceDisplay');
-        if (heroDisplay) heroDisplay.innerHTML = `<span class="sq-currency">GH₵</span><span>${result.indicativePrice.toLocaleString()}</span>`;
-      }
-      if (heroStatusTag) {
-        heroStatusTag.textContent = result.discountApplied ? `Indicative Estimate (${result.discountApplied} Savings)` : 'Indicative Estimate';
-        heroStatusTag.style.background = 'rgba(212, 175, 55, 0.2)';
-        heroStatusTag.style.color = '#F8E5A0';
-      }
-    } else if (result.status === 'assessment_required') {
-      if (livePriceDisplay) {
-        livePriceDisplay.innerHTML = `<span style="font-size: 1.35rem; color: #FFAE8C;">Assessment Required</span>`;
-      }
-      if (livePriceSubtext) {
-        livePriceSubtext.textContent = 'Technician site diagnosis needed';
-      }
-      if (heroStatusTag) {
-        heroStatusTag.textContent = 'Site Assessment Required';
-        heroStatusTag.style.background = 'rgba(228, 105, 63, 0.25)';
-        heroStatusTag.style.color = '#FFAE8C';
-      }
-      const heroDisplay = document.getElementById('sqHeroPriceDisplay');
-      if (heroDisplay) heroDisplay.innerHTML = `<span style="font-size: 1.75rem; color: #FFAE8C;">Assessment Required</span>`;
-    } else if (result.status === 'custom_quotation') {
-      if (livePriceDisplay) {
-        livePriceDisplay.innerHTML = `<span style="font-size: 1.35rem; color: #FFAE8C;">Custom Quotation</span>`;
-      }
-      if (livePriceSubtext) {
-        livePriceSubtext.textContent = 'Outside standard zone corridors';
-      }
-      if (heroStatusTag) {
-        heroStatusTag.textContent = 'Custom Quotation Required';
-        heroStatusTag.style.background = 'rgba(228, 105, 63, 0.25)';
-        heroStatusTag.style.color = '#FFAE8C';
-      }
-      const heroDisplay = document.getElementById('sqHeroPriceDisplay');
-      if (heroDisplay) heroDisplay.innerHTML = `<span style="font-size: 1.75rem; color: #FFAE8C;">Custom Quotation</span>`;
-    }
-
-    // Update Step 5 Result Breakdown
-    if (resService) resService.textContent = result.serviceName;
-    if (resProperty) resProperty.textContent = propertySummary;
-    if (resLocation) {
-      resLocation.textContent = `${result.locationName}${result.logisticsCost > 0 ? ` (+GH₵ ${result.logisticsCost} Logistics)` : ' (Base Logistics)'}`;
-    }
-    if (resAddons) resAddons.textContent = addonsSummary;
-
-    // Generate WhatsApp Quotation Link
-    const waPayload = buildWhatsAppQuotationMessage({
-      serviceName: result.serviceName,
-      propertyType: state.propertyType ? state.propertyType.charAt(0).toUpperCase() + state.propertyType.slice(1) : 'Residential',
-      propertySize: propertySummary,
-      propertyCondition: state.condition || 'Standard',
-      location: `${result.locationName} (${result.suburbsSummary || 'Greater Accra'})`,
-      additionalServices: addonsSummary,
-      indicativeEstimate: result.indicativePrice ? `GH₵ ${result.indicativePrice.toLocaleString()}` : 'Site Assessment Required',
-      quotationStatus: result.status === 'estimate' ? 'Indicative Estimate' : (result.status === 'assessment_required' ? 'Assessment Required' : 'Custom Quotation Required'),
-      customerNotes: state.repairNotes || (result.discountApplied ? `Customer selected ${state.frequency} frequency (${result.discountApplied} savings).` : '')
-    });
-
-    if (finalWhatsAppBtn) {
-      finalWhatsAppBtn.href = waPayload.whatsappUrl;
-      finalWhatsAppBtn.onclick = () => {
-        triggerEvent('smartquote_whatsapp_clicked', { service: result.serviceName, estimate: result.indicativePrice });
-      };
-    }
-    if (sidebarWhatsAppBtn) {
-      sidebarWhatsAppBtn.href = waPayload.whatsappUrl;
-      sidebarWhatsAppBtn.onclick = () => {
-        triggerEvent('smartquote_whatsapp_clicked', { service: result.serviceName, estimate: result.indicativePrice });
-      };
-    }
-
-    // Attach copy button action
-    if (copyQuoteBtn) {
-      copyQuoteBtn.onclick = async () => {
-        try {
-          await navigator.clipboard.writeText(waPayload.rawMessage);
-          if (toast) {
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3500);
-          }
-        } catch (_) {
-          // Fallback if clipboard API is restricted
-          alert('SmartQuote Summary:\n\n' + waPayload.rawMessage);
-        }
-      };
-    }
-  };
-
-  // Wire Event Listeners: Service Selection Cards
-  const serviceCards = container.querySelectorAll('.sq-service-card');
-  serviceCards.forEach(card => {
-    const handleSelect = () => {
-      serviceCards.forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      state.serviceId = card.getAttribute('data-service-id');
-
-      syncServicePanels();
-      recalculate();
-      triggerEvent('smartquote_service_selected', { serviceId: state.serviceId });
-    };
-
-    card.addEventListener('click', handleSelect);
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        handleSelect();
-      }
-    });
-  });
-
-  // Wire Event Listeners: Chips (Property Details)
-  const chips = container.querySelectorAll('.sq-chip');
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      const group = chip.getAttribute('data-group');
-      const val = chip.getAttribute('data-val');
-      if (!group || !val) return;
-
-      const groupChips = container.querySelectorAll(`.sq-chip[data-group="${group}"]`);
-      groupChips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-
-      state[group] = val;
-      recalculate();
-    });
-  });
-
-  // Wire Event Listeners: Location Cards
-  const locationCards = container.querySelectorAll('.sq-location-card');
-  locationCards.forEach(card => {
-    card.addEventListener('click', () => {
-      locationCards.forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      state.locationZone = card.getAttribute('data-zone-id');
-      recalculate();
-    });
-  });
-
-  // Wire Event Listeners: Add-ons Cards
-  const addonCards = container.querySelectorAll('.sq-addon-card');
-  addonCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const addonId = card.getAttribute('data-addon-id');
-      if (!addonId) return;
-
-      if (state.addons.includes(addonId)) {
-        state.addons = state.addons.filter(id => id !== addonId);
-        card.classList.remove('selected');
-      } else {
-        state.addons.push(addonId);
-        card.classList.add('selected');
-      }
-      recalculate();
-    });
-  });
-
-  // Wire Repair Notes Field
-  const repairNotesInput = document.getElementById('sqRepairNotes');
-  if (repairNotesInput) {
-    repairNotesInput.addEventListener('input', (e) => {
-      state.repairNotes = e.target.value.trim();
-      recalculate();
-    });
-  }
-
-  // Wire Navigation Buttons
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      goToStep(state.currentStep + 1);
-    });
-  }
-
-  if (backBtn) {
-    backBtn.addEventListener('click', () => {
-      goToStep(state.currentStep - 1);
-    });
-  }
-
-  // Wire Stepper Node Buttons
-  stepButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const step = parseInt(btn.getAttribute('data-step'), 10);
-      goToStep(step);
-    });
-  });
-
-  // Wire Restart Button
-  if (restartBtn) {
-    restartBtn.addEventListener('click', () => {
-      state.serviceId = 'standard-cleaning';
-      state.locationZone = 'accra-core';
-      state.addons = [];
-      syncServicePanels();
-      recalculate();
-      goToStep(1);
-    });
-  }
-
-  // IntersectionObserver for Analytics view event
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        triggerEvent('smartquote_viewed');
-        observer.unobserve(container);
-      }
-    });
-  }, { threshold: 0.25 });
-  observer.observe(container);
-
-  // Initial Sync & Run
-  syncServicePanels();
-  recalculate();
-}
-
-/**
- * Backward compatibility stub for healthScoreAudit (if referenced on subpages)
- */
-function initHealthScoreAudit() {
-  const auditContainer = document.getElementById('healthScoreAudit');
-  if (!auditContainer) return;
+  const mount = document.getElementById('smartQuoteMount') || document.getElementById('smartQuoteApp');
+  if (!mount) return;
+  mountSmartQuoteApp(mount);
 }
 
 /**
@@ -1163,8 +631,7 @@ function initReportSimulator() {
 }
 
 /**
- * 9. Interactive Global VIP WhatsApp Concierge Widget
- * Injects a sleek floating widget across all pages with pre-filled service triggers
+ * 9. Interactive Global WhatsApp Widget (using strictly list prices from PRICE_LIST, no promo codes)
  */
 function initGlobalWhatsAppWidget() {
   if (document.getElementById('civitasWhatsAppWidget')) return;
@@ -1180,32 +647,29 @@ function initGlobalWhatsAppWidget() {
           <span class="civitas-wa-status-dot"></span>
         </div>
         <div class="civitas-wa-header-info">
-          <h5>Civitas Client Concierge</h5>
-          <span>Online &bull; Accra &amp; Tema &bull; Typically replies under 15m</span>
+          <h5>Civitas Client Support</h5>
+          <span>Accra &amp; Tema &bull; Transparent Scope-Based Quotes</span>
         </div>
         <button class="civitas-wa-close-btn" id="civitasWaCloseBtn" aria-label="Close WhatsApp chat popup">&times;</button>
       </div>
       <div class="civitas-wa-popup-body">
         <div class="civitas-wa-msg-bubble">
-          <p>Hello! Welcome to Civitas Estate & Maintenance. How can our technical team assist your property today?</p>
-          <span class="civitas-wa-timestamp">Just now</span>
+          <p>Hello! How can we help with your property in Accra or Tema today?</p>
+          <span class="civitas-wa-timestamp">${PRICE_VERSION_LINE}</span>
         </div>
         <div class="civitas-wa-quick-options">
-          <p class="civitas-wa-quick-title">Quick Select Your Request:</p>
-          <a href="${createWhatsAppUrl({ customMessage: 'Hello Civitas Estate & Maintenance! 🎄 I would like to claim your Christmas & December Homecoming Offer (Free 12-Point Electrical & AC Safety Audit with Deep Clean) for my property in Accra / Tema. Promo Code: XMAS-PREP26.' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip" style="background: #FFFDF0; border-color: #D4AF37; color: #7C1818; font-weight: 700;">
-            🎄 Christmas &amp; December Homecoming Offer
+          <p class="civitas-wa-quick-title">Select a service or build an instant quote:</p>
+          <a href="/get-a-quote/" class="civitas-wa-chip" style="font-weight: 700;">
+            Build Itemised Smart Quote (${formatFromPrice(PRICE_LIST.cleaning.standard['1'])})
           </a>
-          <a href="${createWhatsAppUrl({ service: 'Move-in / Move-out Deep Cleaning', location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
-            🧹 Deep Cleaning / Move-In Scrub
+          <a href="${createWhatsAppUrl({ service: `${PRICE_LIST.cleaning.deep.label} (${formatFromPrice(PRICE_LIST.cleaning.deep['1'])})`, location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
+            ${PRICE_LIST.cleaning.deep.label} (${formatFromPrice(PRICE_LIST.cleaning.deep['1'])})
           </a>
-          <a href="${createWhatsAppUrl({ service: 'Emergency Plumbing / Electrical Repairs', location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
-            ⚡ Electrical or Plumbing Repair
+          <a href="${createWhatsAppUrl({ service: `Minor Repair (${formatFromPrice(PRICE_LIST.fromPrices.minorRepair)})`, location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
+            Minor Repair (${formatFromPrice(PRICE_LIST.fromPrices.minorRepair)})
           </a>
-          <a href="${createWhatsAppUrl({ service: 'Diaspora Property Watch & Photographic Audit', location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
-            🌍 Diaspora Photographic Inspection
-          </a>
-          <a href="${createWhatsAppUrl({ service: 'Solar PV Cleaning & System Inspection', location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
-            ☀️ Solar Care &amp; Inverter Check
+          <a href="${createWhatsAppUrl({ service: `Property Watch (${formatFromPrice(PRICE_LIST.fromPrices.watchMonthly, 'per month')})`, location: 'Accra / Tema' })}" target="_blank" rel="noopener noreferrer" class="civitas-wa-chip">
+            Property Watch (${formatFromPrice(PRICE_LIST.fromPrices.watchMonthly, 'per month')})
           </a>
         </div>
       </div>
@@ -1260,38 +724,3 @@ function initGlobalWhatsAppWidget() {
     }
   });
 }
-
-/**
- * 10. Christmas & December Homecoming Interactive Instant Quote Form
- */
-function initHolidayQuoteForm() {
-  const form = document.getElementById('holidayQuoteForm');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const propertyType = form.querySelector('#holidayPropertyType')?.value || 'Residential Property';
-    const location = form.querySelector('#holidayLocation')?.value || 'Accra / Tema';
-    const packageChoice = form.querySelector('#holidayPackage')?.value || 'Christmas Holiday Prep Package';
-    const targetDate = form.querySelector('#holidayTargetDate')?.value || 'December 2026';
-    const clientName = form.querySelector('#holidayName')?.value || '';
-
-    const customMessage = `Hello Civitas Estate & Maintenance! 🎄
-
-I would like to claim the *Christmas & December Homecoming Property Care Offer*.
-
-*Promo Code:* XMAS-PREP26 (Free 12-Point Electrical & AC Safety Audit)
-*Property Type:* ${propertyType}
-*Location:* ${location}
-*Package Selected:* ${packageChoice}
-*Preferred Target Date:* ${targetDate}
-${clientName ? `*Name:* ${clientName}\n` : ''}
-Please confirm availability for my neighborhood and provide my instant quotation with the holiday perks included.`;
-
-    const waUrl = createWhatsAppUrl({ customMessage });
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
-  });
-}
-
-

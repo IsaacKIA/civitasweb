@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -130,7 +130,7 @@
 
   <main>
     <!-- Services Hub Header -->
-    <section class="section bg-ivory">
+    <section class="section bg-ivory civ-page-hero">
       <div class="container text-center" style="max-width: 820px;">
         <span class="eyebrow eyebrow-emerald">Service Portfolio</span>
         <h1>Comprehensive Property Care Solutions</h1>
@@ -181,11 +181,10 @@
             <span class="eyebrow eyebrow-emerald">Division 02</span>
             <h2>Civitas Care</h2>
             <p class="lead" style="color: var(--civitas-emerald); font-weight: 600;">Planned Property Care &amp; Preventive Maintenance</p>
-            <p>Property maintenance should not begin only when an expensive failure happens. Civitas Care provides structured monthly inspections, preventive reminders, and organized repair coordination across three tier plans:</p>
+            <p>Property maintenance should not begin only when an expensive failure happens. Civitas Care provides structured monthly inspections, preventive reminders, and organized repair coordination:</p>
             <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin: 1.25rem 0;">
-              <li><strong>• Essential Care:</strong> GH₵350/mo (Basic monthly oversight)</li>
-              <li><strong>• Standard Care:</strong> GH₵650/mo (2 inspections, photo reporting &amp; scheduling)</li>
-              <li><strong>• Premium Care:</strong> From GH₵1,200/mo (Involved multi-visit coordination)</li>
+              <li><strong>&bull; Care Essential:</strong> <span data-price-token="careEssential-from"></span> (Monthly condition inspection &amp; report)</li>
+              <li><strong>&bull; Care Plus:</strong> <span data-price-token="carePlus-from"></span> (Up to 2 inspections, detailed photo reporting &amp; priority coordination)</li>
             </ul>
             <div style="margin-top: 2rem;">
               <a href="/services/civitas-care/" class="btn btn-primary btn-icon-right">
@@ -215,9 +214,9 @@
           <div>
             <span class="eyebrow eyebrow-terracotta">Division 03</span>
             <h2>Civitas Property Watch</h2>
-            <p class="lead" style="color: var(--civitas-forest); font-weight: 600;">Independent Property Inspections &amp; Oversight</p>
-            <p>Designed especially for Ghanaian property owners living abroad or managing properties from a distance. Receive objective, scheduled walk-through inspections, comprehensive photo documentation, and actionable condition updates without family friction.</p>
-            <p class="muted">Provides unbiased visibility over accessible structures, moisture, security hardware, and general grounds condition.</p>
+            <p class="lead" style="color: var(--civitas-forest); font-weight: 600;">Scheduled Visual Checks with Photos (<span data-price-token="watchMonthly-from"></span>)</p>
+            <p>Designed for property owners living abroad or managing properties from a distance. Receive scheduled visual walk-through checks, dated photo documentation, and practical condition updates (<span data-price-token="watchMonthly-from"></span> for Watch Monthly; <span data-price-token="watchPlus-from"></span> for Watch Plus).</p>
+            <p class="muted"><strong>Important note:</strong> Property Watch is a scheduled visual check with photos, not security, guarding, or monitoring.</p>
             <div style="margin-top: 2rem;">
               <a href="/services/property-watch/" class="btn btn-primary btn-icon-right">
                 Explore Property Watch Details
@@ -241,6 +240,13 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- Full List Prices, Scope Matrix, Exclusions, Add-ons & How We Set Our Prices -->
+    <section class="section bg-ivory" id="pricing">
+      <div class="container">
+        <div id="civitasPricingCatalogue"></div>
       </div>
     </section>
 

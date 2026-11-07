@@ -50,7 +50,7 @@
         "url": "https://www.civitasestate.com",
         "telephone": "+233209527426",
         "email": "admin@civitasestate.com",
-        "priceRange": "GH₵350 - GH₵2600",
+        "currenciesAccepted": "GHS",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Greater Accra Metro",
@@ -95,8 +95,8 @@
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Civitas Care — Structured Monthly Preventive Subscriptions",
-                "description": "Scheduled monthly property inspections, proactive upkeep, and priority technician dispatch starting at GH₵350/mo."
+                "name": "Civitas Care — Structured Monthly Preventive Plans",
+                "description": "Scheduled monthly property inspections, written condition reporting, and coordinated maintenance."
               }
             },
             {
@@ -146,15 +146,6 @@
   </script>
 </head>
 <body>
-
-    <!-- Welcome & Seasonal Special Announcement Banner -->
-  <aside class="holiday-offer-bar" aria-label="Special Welcome Promotion">
-    <div class="container holiday-bar-inner">
-      <span class="holiday-badge">✨ Greater Accra &amp; Diaspora Special</span>
-      <span class="holiday-text">Book your Deep Clean or Property Turnover &amp; receive a <strong>FREE 12-Point Electrical, AC &amp; Plumbing Safety Audit</strong>!</span>
-      <button class="holiday-btn" data-open-quote data-service="Deep Cleaning">Claim Free Audit &rarr;</button>
-    </div>
-  </aside>
 
 <!-- Header & Navigation -->
   <header class="site-header">
@@ -239,70 +230,89 @@
 
   <main id="main-content">
 
-    <!-- Section 1: Cinematic Ambient Hero Section (Top #1 World Class Standard) -->
+    <!-- Section 1: Iconic Cinematic Hero Section -->
     <section class="hero-cinematic">
       <!-- Ambient Operational Video Background Loop -->
       <video class="hero-video-background" autoplay loop muted playsinline preload="metadata" poster="/assets/Images/expert solar installations.webp" disablePictureInPicture controlsList="nodownload noplaybackrate">
         <source src="/assets/Videoes/commercial-cleaning.mp4" type="video/mp4">
       </video>
       <div class="hero-gradient-overlay"></div>
+      <div class="hero-architectural-grid" aria-hidden="true"></div>
 
       <div class="container">
         <div class="hero-grid" style="align-items: center;">
           <div class="hero-content">
-            <span class="eyebrow">
-              <span class="pulse-dot" style="margin-right: 0.35rem;"></span>
-              Accra &amp; Tema's Premier Property Care Ecosystem
-            </span>
-            <h1 class="hero-headline">Institutional-Grade Property Care. <span class="hero-headline-accent">Zero Guesswork.</span></h1>
-            <p class="lead">Professional deep cleaning, certified technical repairs, and independent diaspora oversight for residences, commercial facilities, and managed estates across Greater Accra.</p>
-            <p class="muted" style="color: #A3C4B8; margin-bottom: 2rem;">Vetted personnel, fixed upfront digital pricing, and timestamped photographic proof delivered straight to your phone. Zero headaches.</p>
-
-            <div class="hero-actions" style="margin-top: 2rem;">
-              <button class="btn btn-accent btn-lg btn-icon-right" data-open-quote data-mode-cta="primary">
-                Request a Free Quote
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
-              <a href="#divisions" class="btn btn-outline-white btn-lg">Explore Services &darr;</a>
+            <div class="hero-eyebrow-pill">
+              <span class="pulse-dot"></span>
+              <span>Accra &amp; Tema Property Care</span>
+              <span class="hero-eyebrow-divider">&bull;</span>
+              <span class="hero-eyebrow-gold">Scope-Verified</span>
             </div>
 
-            <!-- Hero Live Stats HUD -->
+            <h1 class="hero-headline">
+              Clear Scope. Fair Prices.
+              <span class="hero-headline-accent">Reliable Property Care.</span>
+            </h1>
+
+            <p class="lead">Residential cleaning, minor repairs, monthly preventive care, and scheduled visual property checks across Greater Accra and Tema.</p>
+            <p class="hero-sublead">Every price shows what is included and what is not. Ordinary cleaning supplies, tools, and local transport are included in our cleaning prices.</p>
+
+            <div class="hero-actions">
+              <a href="/get-a-quote/" class="btn btn-accent btn-lg btn-icon-right hero-primary-cta">
+                Get an Instant Quote
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+              <a href="#divisions" class="btn btn-outline-white btn-lg">Explore Our Services &darr;</a>
+            </div>
+
+            <!-- Hero Published Starting Prices Luxury Glass Dock -->
             <div class="hero-stats-hud">
-              <div class="hero-stat-item">
-                <span class="hero-stat-number" data-counter-target="100" data-counter-suffix="%">100%</span>
-                <span class="hero-stat-label">Vetted Personnel</span>
-              </div>
-              <div class="hero-stat-item">
-                <span class="hero-stat-number" data-counter-target="2" data-counter-prefix="< " data-counter-suffix=" hrs">&lt; 2 hrs</span>
-                <span class="hero-stat-label">Quote Turnaround</span>
-              </div>
-              <div class="hero-stat-item">
-                <span class="hero-stat-number" data-counter-target="15" data-counter-suffix="+">15+</span>
-                <span class="hero-stat-label">Covered Suburbs</span>
-              </div>
-              <div class="hero-stat-item">
-                <span class="hero-stat-number" data-counter-target="4" data-counter-suffix="-Point">4-Point</span>
-                <span class="hero-stat-label">Inspection SLA</span>
-              </div>
+              <a href="/get-a-quote/?service=standard" class="hero-stat-item">
+                <span class="hero-stat-tag">01 / Routine</span>
+                <span class="hero-stat-number" data-price-token="standard-from"></span>
+                <span class="hero-stat-label">Standard Clean</span>
+              </a>
+              <a href="/get-a-quote/?service=deep" class="hero-stat-item">
+                <span class="hero-stat-tag">02 / Intensive</span>
+                <span class="hero-stat-number" data-price-token="deep-from"></span>
+                <span class="hero-stat-label">Deep Clean</span>
+              </a>
+              <a href="/services/civitas-care/" class="hero-stat-item">
+                <span class="hero-stat-tag">03 / Monthly</span>
+                <span class="hero-stat-number" data-price-token="careEssential-price"></span>
+                <span class="hero-stat-label">Care / Month</span>
+              </a>
+              <a href="/services/property-watch/" class="hero-stat-item">
+                <span class="hero-stat-tag">04 / Visual Check</span>
+                <span class="hero-stat-number" data-price-token="watchMonthly-price"></span>
+                <span class="hero-stat-label">Watch / Month</span>
+              </a>
             </div>
           </div>
 
-          <!-- Hero Media Interactive Showcase Reel -->
+          <!-- Hero Media Interactive Architectural Cinema Portal -->
           <div class="hero-media">
-            <div class="hero-showcase-box">
-              <video id="heroShowcaseVideo" class="hero-showcase-video" autoplay loop muted playsinline preload="metadata" poster="/assets/Images/expert solar installations.webp" disablePictureInPicture controlsList="nodownload noplaybackrate">
-                <source src="/assets/Videoes/solar-installation-field.mp4" type="video/mp4">
-              </video>
-              <div class="hero-video-controller">
-                <button id="heroVideoPlayBtn" type="button" aria-label="Toggle reel playback">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-                  Field Operations
-                </button>
-                <span style="font-size: 0.75rem; color: #9FD0C0;">Live Field Operations &bull; Solar &amp; Facilities</span>
-                <button id="heroVideoMuteBtn" type="button" aria-label="Toggle audio">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-                  Muted
-                </button>
+            <div class="hero-portal-frame">
+              <div class="hero-portal-topbar">
+                <span class="hero-portal-dots"><i></i><i></i><i></i></span>
+                <span class="hero-portal-title">LIVE FIELD OPERATIONS &bull; GREATER ACCRA &amp; TEMA</span>
+                <span class="hero-portal-live"><span class="pulse-dot"></span> HD</span>
+              </div>
+              <div class="hero-showcase-box">
+                <video id="heroShowcaseVideo" class="hero-showcase-video" autoplay loop muted playsinline preload="metadata" poster="/assets/Images/expert solar installations.webp" disablePictureInPicture controlsList="nodownload noplaybackrate">
+                  <source src="/assets/Videoes/solar-installation-field.mp4" type="video/mp4">
+                </video>
+                <div class="hero-video-controller">
+                  <button id="heroVideoPlayBtn" type="button" aria-label="Toggle reel playback">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                    Field Operations
+                  </button>
+                  <span style="font-size: 0.75rem; color: #F8E2A2; font-weight: 600;">Accra &amp; Tema Teams</span>
+                  <button id="heroVideoMuteBtn" type="button" aria-label="Toggle audio">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                    Muted
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -310,17 +320,17 @@
       </div>
     </section>
 
-    <!-- Luxury Trust & Global Compliance Ribbon -->
+    <!-- Core Principles Architectural Frieze -->
     <div class="luxury-trust-ribbon">
       <div class="container">
         <div class="trust-ribbon-grid">
           <div class="trust-ribbon-item">
             <div class="trust-ribbon-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
             </div>
             <div class="trust-ribbon-text">
-              <strong>100% Criminal Background Checked</strong>
-              <span>Verified biometric IDs, police clearances & certifications</span>
+              <strong>Price Follows Scope</strong>
+              <span>Every price shows clearly what is included and what is not</span>
             </div>
           </div>
           <div class="trust-ribbon-item">
@@ -328,8 +338,8 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
             <div class="trust-ribbon-text">
-              <strong>BS 7671 & Engineering Compliance</strong>
-              <span>British standard electrical, plumbing & solar diagnostics</span>
+              <strong>No Hidden Fees</strong>
+              <span>Ordinary supplies, tools &amp; local Accra/Tema transport included</span>
             </div>
           </div>
           <div class="trust-ribbon-item">
@@ -337,8 +347,8 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
             </div>
             <div class="trust-ribbon-text">
-              <strong>Photographic Chain-of-Custody</strong>
-              <span>Timestamped before & after audits delivered to your phone</span>
+              <strong>Dated Photo Reports</strong>
+              <span>Structured completion checklists and photos sent to your phone</span>
             </div>
           </div>
           <div class="trust-ribbon-item">
@@ -346,110 +356,61 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             </div>
             <div class="trust-ribbon-text">
-              <strong>Under 2-Hour Rapid Response SLA</strong>
-              <span>Dedicated dispatch hubs across East Legon, Airport & Tema</span>
+              <strong>14-Day Quote Guarantee</strong>
+              <span>Written quotations are honoured for 14 days from issue</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Section 2: The Civitas Standard (Empathy & Problem Solved) -->
-    <section class="section bg-sage" id="why-civitas">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow eyebrow-terracotta">The Civitas Standard</span>
-          <h2>Property Care Without the Traditional Headaches</h2>
-          <p class="lead" style="max-width: 820px; margin: 0.75rem auto 0; color: var(--civitas-forest);">
-            Finding reliable property care in Accra shouldn't mean chasing unvetted artisans, arguing over surprise invoices, or worrying from abroad. Civitas delivers institutional order, verified competence, and total peace of mind.
-          </p>
-        </div>
-
-        <div class="problem-solution-grid">
-          <div class="problem-card">
-            <div class="problem-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-            </div>
-            <h4>Fixed Upfront Scope</h4>
-            <p>Pre-agreed digital pricing before work begins. No surprise material markups, sudden extra invoices, or arbitrary fees mid-job.</p>
-          </div>
-
-          <div class="problem-card">
-            <div class="problem-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="16 11 18 13 22 9"></polyline></svg>
-            </div>
-            <h4>100% Vetted Personnel</h4>
-            <p>Identity-verified, background-checked technicians equipped with commercial-grade tools and matched specifically to your task.</p>
-          </div>
-
-          <div class="problem-card">
-            <div class="problem-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            </div>
-            <h4>Organized Scheduling</h4>
-            <p>Confirmed arrival windows and streamlined dispatch without endless phone calls, ghosting, or missed appointments.</p>
-          </div>
-
-          <div class="problem-card">
-            <div class="problem-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-            </div>
-            <h4>Photographic Verification</h4>
-            <p>Work is completed against structured checklists. You receive timestamped photo confirmation on WhatsApp before final sign-off.</p>
-          </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 2.75rem;">
-          <p style="font-weight: 700; color: var(--civitas-forest); font-size: 1.05rem;">
-            Smart Living. Sustainable Legacy. That is the Civitas commitment.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 2: Three Service Divisions -->
+    <!-- Section 2: Three Service Divisions (Editorial Architectural Triptych) -->
     <section class="section bg-white" id="divisions">
       <div class="container">
         <div class="section-header text-center">
-          <span class="eyebrow eyebrow-emerald">Our Core Divisions</span>
-          <h2>One Property. Three Ways We Care.</h2>
-          <p class="muted">Whether you require an immediate repair, a structured monthly care subscription, or independent property oversight from a distance, Civitas delivers organized solutions.</p>
+          <span class="eyebrow eyebrow-emerald">Our Core Services</span>
+          <h2>One Property. Three Clear Ways We Help.</h2>
+          <p class="muted">Whether you need a one-time clean or repair, a monthly maintenance plan, or scheduled visual checks while you are away, every service starts with a clear written scope.</p>
         </div>
 
         <div class="divisions-grid">
           <!-- Civitas Fix -->
           <article class="division-card">
             <div class="division-card-media">
-              <img src="/assets/Images/Plumbing work.webp" alt="Civitas Fix - Plumbing and repairs" loading="lazy">
-              <span class="division-badge-tag">Immediate Care</span>
+              <img src="/assets/Images/Plumbing work.webp" alt="Civitas Fix - Cleaning and repairs" loading="lazy">
+              <div class="division-media-vignette"></div>
+              <span class="division-index-num">01</span>
+              <span class="division-badge-tag">Cleaning &bull; <span data-price-token="standard-from"></span></span>
             </div>
             <div class="division-card-body">
+              <span class="division-sub">Cleaning, Minor Repairs &amp; Assessments</span>
               <h3>Civitas Fix</h3>
-              <span class="division-sub">Cleaning, Repairs & Maintenance</span>
-              <p>From routine residential cleaning and deep cleaning to minor plumbing, electrical repairs, painting, and general maintenance, Civitas Fix helps you keep your property in good condition.</p>
+              <p>Standard, Apartment Ready, Move-in/move-out, and Deep cleaning (<span data-price-token="standard-from"></span> to <span data-price-token="deep-3"></span>), plus minor repairs (<span data-price-token="minorRepair-from"></span>) and condition assessments (<span data-price-token="assessment-from"></span>).</p>
               <div class="division-card-footer">
                 <a href="/services/civitas-fix/" class="division-card-link">
-                  Explore Civitas Fix
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <span>Explore Civitas Fix</span>
+                  <span class="division-link-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
                 </a>
               </div>
             </div>
           </article>
 
           <!-- Civitas Care -->
-          <article class="division-card">
+          <article class="division-card division-card-featured">
             <div class="division-card-media">
-              <img src="/assets/Images/maintenance officer.webp" alt="Civitas Care - Maintenance planning" loading="lazy">
-              <span class="division-badge-tag">Monthly Subscription</span>
+              <img src="/assets/Images/maintenance officer.webp" alt="Civitas Care - Monthly maintenance planning" loading="lazy">
+              <div class="division-media-vignette"></div>
+              <span class="division-index-num">02</span>
+              <span class="division-badge-tag"><span data-price-token="careEssential-from"></span></span>
             </div>
             <div class="division-card-body">
+              <span class="division-sub">Planned Monthly Care</span>
               <h3>Civitas Care</h3>
-              <span class="division-sub">Planned Care. Fewer Surprises.</span>
-              <p>Property maintenance should not begin only when something goes wrong. Civitas Care provides structured monthly inspections, maintenance planning and service coordination to help owners stay organized.</p>
+              <p>Structured monthly condition inspections, written reports, and repair coordination so small issues are caught early. Care Essential (<span data-price-token="careEssential-from"></span>) and Care Plus (<span data-price-token="carePlus-from"></span>).</p>
               <div class="division-card-footer">
                 <a href="/services/civitas-care/" class="division-card-link">
-                  Explore Civitas Care
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <span>Explore Civitas Care</span>
+                  <span class="division-link-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
                 </a>
               </div>
             </div>
@@ -458,17 +419,19 @@
           <!-- Civitas Property Watch -->
           <article class="division-card">
             <div class="division-card-media">
-              <img src="/assets/Images/architectural design.webp" alt="Civitas Property Watch - Independent oversight" loading="lazy">
-              <span class="division-badge-tag">Remote & Diaspora</span>
+              <img src="/assets/Images/architectural design.webp" alt="Civitas Property Watch - Scheduled visual check" loading="lazy">
+              <div class="division-media-vignette"></div>
+              <span class="division-index-num">03</span>
+              <span class="division-badge-tag"><span data-price-token="watchMonthly-from"></span></span>
             </div>
             <div class="division-card-body">
+              <span class="division-sub">Scheduled Visual Check with Photos</span>
               <h3>Civitas Property Watch</h3>
-              <span class="division-sub">Stay Informed About Your Property.</span>
-              <p>Whether you live nearby or manage your property from abroad, scheduled condition inspections, photographic documentation, and structured reporting give you objective visibility.</p>
+              <p>Scheduled visual checks with dated photos and a written report (<span data-price-token="watchMonthly-from"></span> for Watch Monthly; <span data-price-token="watchPlus-from"></span> for Watch Plus). Note: Property Watch is a scheduled visual check with photos, not security, guarding, or monitoring.</p>
               <div class="division-card-footer">
                 <a href="/services/property-watch/" class="division-card-link">
-                  Explore Property Watch
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  <span>Explore Property Watch</span>
+                  <span class="division-link-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
                 </a>
               </div>
             </div>
@@ -477,8 +440,8 @@
       </div>
     </section>
 
-    <!-- Section 2.75: Interactive Before & After Transformation Slider -->
-    <section class="section bg-white" id="transformations">
+    <!-- Section 3: Interactive Before & After Transformation Gallery Stage -->
+    <section class="section civ-transformation-stage" id="transformations">
       <div class="container">
         <div class="section-header text-center">
           <span class="eyebrow eyebrow-emerald">Measurable Standards</span>
@@ -486,25 +449,32 @@
           <p class="muted">Drag the interactive slider left and right to see the difference between weathered, neglected surfaces and Civitas corporate-grade property maintenance.</p>
         </div>
 
-        <div class="before-after-wrapper" id="propertyBeforeAfterSlider" aria-label="Drag slider to compare before and after">
-          <!-- Background: Unmaintained/Before -->
-          <img src="/assets/Images/Painting wall.webp" alt="Before Maintenance Condition" class="ba-image ba-image-before">
-          <span class="ba-badge ba-badge-before">Before Care</span>
+        <div class="civ-ba-bezel-frame">
+          <div class="before-after-wrapper" id="propertyBeforeAfterSlider" aria-label="Drag slider to compare before and after">
+            <!-- Background: Unmaintained/Before -->
+            <img src="/assets/Images/Painting wall.webp" alt="Before Maintenance Condition" class="ba-image ba-image-before">
+            <span class="ba-badge ba-badge-before">Before Care</span>
 
-          <!-- Overlay: Spotless/After -->
-          <div class="ba-image-after-wrap">
-            <img src="/assets/Images/Commercial cleaning.webp" alt="After Civitas Gold Standard Care" class="ba-image">
-            <span class="ba-badge ba-badge-after">Civitas Standard</span>
+            <!-- Overlay: Spotless/After -->
+            <div class="ba-image-after-wrap">
+              <img src="/assets/Images/Commercial cleaning.webp" alt="After Civitas Gold Standard Care" class="ba-image">
+              <span class="ba-badge ba-badge-after">Civitas Standard</span>
+            </div>
+
+            <!-- Draggable Handle -->
+            <div class="ba-slider-handle" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline><polyline points="9 18 3 12 9 6"></polyline></svg>
+            </div>
           </div>
-
-          <!-- Draggable Handle -->
-          <div class="ba-slider-handle" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline><polyline points="9 18 3 12 9 6"></polyline></svg>
+          <div class="civ-ba-caption-bar">
+            <span>&larr; Drag interactive comparison handle &rarr;</span>
+            <div class="civ-ba-pills">
+              <span>✓ Room-by-Room Checklist</span>
+              <span>✓ Safe Surface Chemistry</span>
+              <span>✓ Photo-Verified Handover</span>
+            </div>
           </div>
         </div>
-        <p style="text-align: center; margin-top: 1rem; font-size: 0.85rem; color: var(--civitas-text-muted);">
-          &larr; Drag slider left or right &rarr;
-        </p>
       </div>
     </section>
 
@@ -629,8 +599,8 @@
             </div>
             <div class="video-card-body">
               <span class="video-op-badge">Trasacco Valley • Property Watch</span>
-              <h4>Independent Photographic Condition Audit</h4>
-              <p>Timestamped photographic reports, water meter verification, and boundary security checks for Diaspora owners.</p>
+              <h4>Scheduled Visual Property Check</h4>
+              <p>Scheduled visual check with dated photos, water meter reading, and compound condition documentation for Diaspora owners.</p>
               <button class="video-trigger-link" data-video-src="/assets/Videoes/property-management.mp4">
                 Watch Operation Clip
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
@@ -641,717 +611,53 @@
       </div>
     </section>
 
-    <!-- Section 2.85: Civitas SmartQuote™ — Interactive Service Pricing & Quotation Engine -->
-    <section class="section bg-ivory" id="smartquote">
-      <span id="health-audit" style="position: absolute; top: -80px; visibility: hidden;"></span>
-      <div class="container">
-        <div class="section-header text-center" style="max-width: 860px; margin: 0 auto 2.5rem;">
-          <span class="eyebrow eyebrow-terracotta" style="display: inline-flex; align-items: center; gap: 0.4rem;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            Civitas SmartQuote™
-          </span>
-          <h2 style="font-size: clamp(2.2rem, 4vw, 3.2rem);">Know What Your Property Care <span class="luxury-gold-text">Could Cost.</span></h2>
-          <p class="lead" style="margin-top: 0.75rem; color: var(--civitas-forest);">
-            Get an instant indicative estimate for professional cleaning and property care services. Select your requirements, review the estimated cost and request a personalised quotation.
-          </p>
-        </div>
-
-        <div class="smartquote-container" id="smartQuoteApp">
-          <!-- Stepper Progress Header -->
-          <div class="smartquote-stepper-wrap">
-            <div class="smartquote-stepper" role="tablist" aria-label="SmartQuote Steps">
-              <div class="smartquote-progress-track">
-                <div class="smartquote-progress-bar" id="sqProgressBar"></div>
-              </div>
-
-              <!-- Step 1 -->
-              <button class="sq-step-node active" id="sqStepBtn1" data-step="1" role="tab" aria-selected="true" aria-controls="sqPane1">
-                <div class="sq-step-circle">1</div>
-                <span class="sq-step-label">Service</span>
-              </button>
-
-              <!-- Step 2 -->
-              <button class="sq-step-node" id="sqStepBtn2" data-step="2" role="tab" aria-selected="false" aria-controls="sqPane2">
-                <div class="sq-step-circle">2</div>
-                <span class="sq-step-label">Property</span>
-              </button>
-
-              <!-- Step 3 -->
-              <button class="sq-step-node" id="sqStepBtn3" data-step="3" role="tab" aria-selected="false" aria-controls="sqPane3">
-                <div class="sq-step-circle">3</div>
-                <span class="sq-step-label">Location</span>
-              </button>
-
-              <!-- Step 4 -->
-              <button class="sq-step-node" id="sqStepBtn4" data-step="4" role="tab" aria-selected="false" aria-controls="sqPane4">
-                <div class="sq-step-circle">4</div>
-                <span class="sq-step-label">Add-ons</span>
-              </button>
-
-              <!-- Step 5 -->
-              <button class="sq-step-node" id="sqStepBtn5" data-step="5" role="tab" aria-selected="false" aria-controls="sqPane5">
-                <div class="sq-step-circle">5</div>
-                <span class="sq-step-label">Estimate</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Left Column: Step-by-Step Forms -->
-          <div class="smartquote-controls">
-            <!-- PANE 1: Service Selection -->
-            <div class="sq-pane active" id="sqPane1" role="tabpanel" aria-labelledby="sqStepBtn1">
-              <div class="sq-pane-header">
-                <h3 class="sq-pane-title">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                  Step 1: Select Service Category
-                </h3>
-                <p class="sq-pane-desc">Choose the primary property care service you require for your home or commercial facility.</p>
-              </div>
-
-              <div class="sq-services-grid" id="sqServicesGrid">
-                <!-- Service 1: Standard Cleaning -->
-                <div class="sq-service-card selected" data-service-id="standard-cleaning">
-                  <div class="sq-service-card-top">
-                    <div class="sq-service-icon-wrap">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path></svg>
-                    </div>
-                    <span class="sq-service-tag">From GH₵ 180</span>
-                  </div>
-                  <div>
-                    <h4 class="sq-service-name">Standard Property Cleaning</h4>
-                    <p class="sq-service-desc">Routine, recurring or scheduled surface upkeep, floor scrubbing and kitchen & bathroom detailing.</p>
-                  </div>
-                </div>
-
-                <!-- Service 2: Deep Cleaning -->
-                <div class="sq-service-card" data-service-id="deep-cleaning">
-                  <div class="sq-service-card-top">
-                    <div class="sq-service-icon-wrap">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    </div>
-                    <span class="sq-service-tag">From GH₵ 350</span>
-                  </div>
-                  <div>
-                    <h4 class="sq-service-name">Deep Cleaning</h4>
-                    <p class="sq-service-desc">Intensive restorative sanitisation, tile lime descaling, high/low dust extraction & steam care.</p>
-                  </div>
-                </div>
-
-                <!-- Service 3: Move-In / Move-Out -->
-                <div class="sq-service-card" data-service-id="move-in-out">
-                  <div class="sq-service-card-top">
-                    <div class="sq-service-icon-wrap">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                    </div>
-                    <span class="sq-service-tag">From GH₵ 380</span>
-                  </div>
-                  <div>
-                    <h4 class="sq-service-name">Move-In / Move-Out Cleaning</h4>
-                    <p class="sq-service-desc">Full handover readiness: internal cabinetry, fixtures, windows, disinfection & tenant handover polish.</p>
-                  </div>
-                </div>
-
-                <!-- Service 4: Apartment Turnover -->
-                <div class="sq-service-card" data-service-id="turnover-cleaning">
-                  <div class="sq-service-card-top">
-                    <div class="sq-service-icon-wrap">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                    </div>
-                    <span class="sq-service-tag">From GH₵ 220</span>
-                  </div>
-                  <div>
-                    <h4 class="sq-service-name">Apartment Turnover Cleaning</h4>
-                    <p class="sq-service-desc">Fast-turnaround sanitation and hospitality-grade presentation for Airbnb hosts and executive suites.</p>
-                  </div>
-                </div>
-
-                <!-- Service 5: Condition Inspection -->
-                <div class="sq-service-card" data-service-id="condition-inspection">
-                  <div class="sq-service-card-top">
-                    <div class="sq-service-icon-wrap">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                    </div>
-                    <span class="sq-service-tag">From GH₵ 350</span>
-                  </div>
-                  <div>
-                    <h4 class="sq-service-name">Property Condition Inspection</h4>
-                    <p class="sq-service-desc">Independent engineering audit of damp ingress, electrical earthing, plumbing pressure and structural safety.</p>
-                  </div>
-                </div>
-
-                <!-- Service 6: Minor Repairs & Maintenance -->
-                <div class="sq-service-card" data-service-id="minor-repairs">
-                  <div class="sq-service-card-top">
-                    <div class="sq-service-icon-wrap">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
-                    </div>
-                    <span class="sq-service-tag assessment">Assessment Required</span>
-                  </div>
-                  <div>
-                    <h4 class="sq-service-name">Minor Repairs & Maintenance</h4>
-                    <p class="sq-service-desc">Plumbing leaks, faulty breaker switches, AC coil wash and general multi-trade artisan diagnostics.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- PANE 2: Property Details -->
-            <div class="sq-pane" id="sqPane2" role="tabpanel" aria-labelledby="sqStepBtn2">
-              <div class="sq-pane-header">
-                <h3 class="sq-pane-title">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                  Step 2: Property Specifications
-                </h3>
-                <p class="sq-pane-desc">Enter only details essential for calculating accurate manpower, duration and equipment needs.</p>
-              </div>
-
-              <!-- Cleaning Form Fields -->
-              <div id="sqCleaningFields">
-                <!-- Property Type -->
-                <div class="sq-form-group">
-                  <label class="sq-field-label">Property Type</label>
-                  <div class="sq-chips-grid">
-                    <div class="sq-chip active" data-group="propertyType" data-val="villa">Standalone Villa / House</div>
-                    <div class="sq-chip" data-group="propertyType" data-val="apartment">Luxury Apartment / Flat</div>
-                    <div class="sq-chip" data-group="propertyType" data-val="townhouse">Townhouse / Semi-Detached</div>
-                    <div class="sq-chip" data-group="propertyType" data-val="commercial">Commercial / Office</div>
-                  </div>
-                </div>
-
-                <!-- Bedrooms & Bathrooms -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
-                  <div class="sq-form-group">
-                    <label class="sq-field-label">Number of Bedrooms</label>
-                    <div class="sq-chips-grid">
-                      <div class="sq-chip" data-group="bedrooms" data-val="studio-1">Studio / 1</div>
-                      <div class="sq-chip" data-group="bedrooms" data-val="2-bed">2 Beds</div>
-                      <div class="sq-chip active" data-group="bedrooms" data-val="3-bed">3 Beds</div>
-                      <div class="sq-chip" data-group="bedrooms" data-val="4-bed">4 Beds</div>
-                      <div class="sq-chip" data-group="bedrooms" data-val="5-plus">5+ Beds</div>
-                    </div>
-                  </div>
-
-                  <div class="sq-form-group">
-                    <label class="sq-field-label">Number of Bathrooms</label>
-                    <div class="sq-chips-grid">
-                      <div class="sq-chip" data-group="bathrooms" data-val="1">1 Bath</div>
-                      <div class="sq-chip" data-group="bathrooms" data-val="2">2 Baths</div>
-                      <div class="sq-chip active" data-group="bathrooms" data-val="3">3 Baths</div>
-                      <div class="sq-chip" data-group="bathrooms" data-val="4">4 Baths</div>
-                      <div class="sq-chip" data-group="bathrooms" data-val="5-plus">5+ Baths</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Current Condition & Frequency -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
-                  <div class="sq-form-group">
-                    <label class="sq-field-label">Current Property Condition</label>
-                    <div class="sq-chips-grid">
-                      <div class="sq-chip active" data-group="condition" data-val="well-maintained">
-                        Well-Kept
-                        <span class="chip-sub">Standard dust & surfaces</span>
-                      </div>
-                      <div class="sq-chip" data-group="condition" data-val="lived-in">
-                        Lived-In
-                        <span class="chip-sub">Accumulated grease/scale</span>
-                      </div>
-                      <div class="sq-chip" data-group="condition" data-val="heavy-dust">
-                        Heavy Dust
-                        <span class="chip-sub">Post-renovation / Harmattan</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="sq-form-group">
-                    <label class="sq-field-label">Cleaning Frequency</label>
-                    <div class="sq-chips-grid">
-                      <div class="sq-chip active" data-group="frequency" data-val="one-off">
-                        One-Off
-                        <span class="chip-sub">Standard rate</span>
-                      </div>
-                      <div class="sq-chip" data-group="frequency" data-val="bi-weekly">
-                        Bi-Weekly
-                        <span class="chip-sub" style="color: #25D366; font-weight: 700;">Save 10%</span>
-                      </div>
-                      <div class="sq-chip" data-group="frequency" data-val="monthly">
-                        Monthly
-                        <span class="chip-sub" style="color: #25D366; font-weight: 700;">Save 5%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Inspection Form Fields -->
-              <div id="sqInspectionFields" style="display: none;">
-                <div class="sq-form-group">
-                  <label class="sq-field-label">Property Scale / Approximate Floor Area</label>
-                  <div class="sq-chips-grid">
-                    <div class="sq-chip active" data-group="propertySize" data-val="under-250">
-                      Up to 250 m²
-                      <span class="chip-sub">1–3 Bed Apartment or Townhouse</span>
-                    </div>
-                    <div class="sq-chip" data-group="propertySize" data-val="250-500">
-                      250 m² – 500 m²
-                      <span class="chip-sub">Executive Residence / Standalone Villa</span>
-                    </div>
-                    <div class="sq-chip" data-group="propertySize" data-val="over-500">
-                      500+ m²
-                      <span class="chip-sub">Large Compound / Multi-Unit Estate</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="sq-form-group">
-                  <label class="sq-field-label">Inspection Audit Scope</label>
-                  <div class="sq-chips-grid">
-                    <div class="sq-chip active" data-group="inspectionType" data-val="standard-audit">
-                      Routine Condition Audit
-                      <span class="chip-sub">Preventive maintenance health score</span>
-                    </div>
-                    <div class="sq-chip" data-group="inspectionType" data-val="pre-purchase">
-                      Pre-Purchase / Pre-Lease
-                      <span class="chip-sub">Deep structural & defect verification</span>
-                    </div>
-                    <div class="sq-chip" data-group="inspectionType" data-val="diaspora-oversight">
-                      Diaspora Remote Oversight
-                      <span class="chip-sub">High-res video & maintenance punch list</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Repairs Notice Fields -->
-              <div id="sqRepairsFields" style="display: none;">
-                <div class="sq-form-group">
-                  <label class="sq-field-label">Repair Category</label>
-                  <div class="sq-chips-grid">
-                    <div class="sq-chip active" data-group="repairCategory" data-val="plumbing">💧 Plumbing & Drainage</div>
-                    <div class="sq-chip" data-group="repairCategory" data-val="electrical">⚡ Electrical & Lighting</div>
-                    <div class="sq-chip" data-group="repairCategory" data-val="hvac">❄️ AC Servicing & Gas</div>
-                    <div class="sq-chip" data-group="repairCategory" data-val="carpentry">🚪 Carpentry & Locks</div>
-                    <div class="sq-chip" data-group="repairCategory" data-val="multi-trade">🛠️ Multi-Trade Punch List</div>
-                  </div>
-                </div>
-
-                <div class="sq-form-group">
-                  <label class="sq-field-label">Scope of Affected Items</label>
-                  <div class="sq-chips-grid">
-                    <div class="sq-chip active" data-group="repairScope" data-val="1-2">1–2 Items (Single Fault)</div>
-                    <div class="sq-chip" data-group="repairScope" data-val="3-5">3–5 Items (Multiple Fixes)</div>
-                    <div class="sq-chip" data-group="repairScope" data-val="compound">Facility-Wide Inspection</div>
-                  </div>
-                </div>
-
-                <div class="sq-form-group">
-                  <label class="sq-field-label">Brief Description of the Issue</label>
-                  <textarea id="sqRepairNotes" class="form-input" style="width: 100%; border: 1.5px solid var(--civitas-border); border-radius: 8px; padding: 0.75rem; font-family: var(--font-body); font-size: 0.9rem;" rows="3" placeholder="e.g. Water pump pressure fluctuation, leaking bathroom waste pipe, tripped AC circuit breaker..."></textarea>
-                </div>
-
-                <div class="sq-notice-box">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                  <div>
-                    <strong>Assessment Required for Repairs:</strong> To ensure transparent pricing, Civitas sends a verified technician to inspect pipework, circuit load, or spare parts before quoting. We do not invent arbitrary repair prices.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- PANE 3: Location Selection -->
-            <div class="sq-pane" id="sqPane3" role="tabpanel" aria-labelledby="sqStepBtn3">
-              <div class="sq-pane-header">
-                <h3 class="sq-pane-title">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                  Step 3: Service Location
-                </h3>
-                <p class="sq-pane-desc">Select your neighbourhood in Accra or Tema. Travel logistics are calculated transparently by zone.</p>
-              </div>
-
-              <div class="sq-locations-grid" id="sqLocationsGrid">
-                <!-- Zone 1 -->
-                <div class="sq-location-card selected" data-zone-id="accra-core">
-                  <div class="sq-loc-info">
-                    <h4>Core Accra</h4>
-                    <p class="sq-loc-suburbs">East Legon, Airport Residential, Cantonments, Ridge, Osu, Labone</p>
-                  </div>
-                  <span class="sq-loc-badge">Base Logistics Included</span>
-                </div>
-
-                <!-- Zone 2 -->
-                <div class="sq-location-card" data-zone-id="accra-east">
-                  <div class="sq-loc-info">
-                    <h4>Greater Accra East</h4>
-                    <p class="sq-loc-suburbs">Spintex Rd, Trasacco Valley, Dzorwulu, Abelemkpe, Adjiringanor</p>
-                  </div>
-                  <span class="sq-loc-badge">Base Logistics Included</span>
-                </div>
-
-                <!-- Zone 3 -->
-                <div class="sq-location-card" data-zone-id="tema">
-                  <div class="sq-loc-info">
-                    <h4>Tema & Surrounds</h4>
-                    <p class="sq-loc-suburbs">Tema Communities 1–25, Sakumono, Lashibi, Emefs Estate</p>
-                  </div>
-                  <span class="sq-loc-badge">+GH₵ 50 Travel Allowance</span>
-                </div>
-
-                <!-- Zone 4 -->
-                <div class="sq-location-card" data-zone-id="accra-outer">
-                  <div class="sq-loc-info">
-                    <h4>Outer Accra Suburbs</h4>
-                    <p class="sq-loc-suburbs">Pokuase, Adenta West, Abokobi, Amasaman, Kasoa Corridor</p>
-                  </div>
-                  <span class="sq-loc-badge">+GH₵ 80 Travel Allowance</span>
-                </div>
-
-                <!-- Zone 5: Outside -->
-                <div class="sq-location-card" data-zone-id="custom-zone">
-                  <div class="sq-loc-info">
-                    <h4>Outside Standard Service Zones</h4>
-                    <p class="sq-loc-suburbs">Other Greater Accra sectors, Prampram, or regional properties</p>
-                  </div>
-                  <span class="sq-loc-badge custom">Custom Quotation Required</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- PANE 4: Add-ons Selection -->
-            <div class="sq-pane" id="sqPane4" role="tabpanel" aria-labelledby="sqStepBtn4">
-              <div class="sq-pane-header">
-                <h3 class="sq-pane-title">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                  Step 4: Additional Specialised Services
-                </h3>
-                <p class="sq-pane-desc">Enhance your booking with tailored treatments designed for coastal and dust-prone Ghanaian climates.</p>
-              </div>
-
-              <!-- Cleaning Add-ons -->
-              <div class="sq-addons-grid" id="sqCleaningAddons">
-                <div class="sq-addon-card" data-addon-id="balcony-wash">
-                  <div class="sq-addon-checkbox">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                  <div class="sq-addon-details">
-                    <div class="sq-addon-title">Balcony & Veranda Pressure Wash</div>
-                    <div style="font-size: 0.8rem; color: var(--civitas-text-muted);">Intensive exterior dust clearance and tiled floor power washing</div>
-                  </div>
-                  <div class="sq-addon-price">+GH₵ 60</div>
-                </div>
-
-                <div class="sq-addon-card" data-addon-id="exterior-windows">
-                  <div class="sq-addon-checkbox">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                  <div class="sq-addon-details">
-                    <div class="sq-addon-title">High-Reach Exterior Glass & Railing Polish</div>
-                    <div style="font-size: 0.8rem; color: var(--civitas-text-muted);">Double-glazed streak-free cleaning with safety harnesses</div>
-                  </div>
-                  <div class="sq-addon-price">+GH₵ 80</div>
-                </div>
-
-                <div class="sq-addon-card" data-addon-id="appliance-interior">
-                  <div class="sq-addon-checkbox">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                  <div class="sq-addon-details">
-                    <div class="sq-addon-title">Major Appliance Interior Degreasing</div>
-                    <div style="font-size: 0.8rem; color: var(--civitas-text-muted);">Complete inside degreasing of cooker, oven and refrigerator</div>
-                  </div>
-                  <div class="sq-addon-price">+GH₵ 70</div>
-                </div>
-
-                <div class="sq-addon-card" data-addon-id="driveway-sweep">
-                  <div class="sq-addon-checkbox">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                  <div class="sq-addon-details">
-                    <div class="sq-addon-title">Compound & Paved Carpark Power Scrub</div>
-                    <div style="font-size: 0.8rem; color: var(--civitas-text-muted);">Algae, moss, and oil stain pressure washing for compound pavers</div>
-                  </div>
-                  <div class="sq-addon-price">+GH₵ 80</div>
-                </div>
-              </div>
-
-              <!-- Inspection Add-ons -->
-              <div class="sq-addons-grid" id="sqInspectionAddons" style="display: none;">
-                <div class="sq-addon-card" data-addon-id="drone-roof">
-                  <div class="sq-addon-checkbox">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                  <div class="sq-addon-details">
-                    <div class="sq-addon-title">Thermal Aerial Drone Roof & Gutter Audit</div>
-                    <div style="font-size: 0.8rem; color: var(--civitas-text-muted);">Detect hidden roof ponding, cracked tiles and gutter blockage</div>
-                  </div>
-                  <div class="sq-addon-price">+GH₵ 180</div>
-                </div>
-
-                <div class="sq-addon-card" data-addon-id="water-lab-test">
-                  <div class="sq-addon-checkbox">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                  <div class="sq-addon-details">
-                    <div class="sq-addon-title">Borehole & Polytank Water Quality Lab Test</div>
-                    <div style="font-size: 0.8rem; color: var(--civitas-text-muted);">Certified pH, mineral, and microbial water safety analysis</div>
-                  </div>
-                  <div class="sq-addon-price">+GH₵ 200</div>
-                </div>
-
-                <div class="sq-addon-card" data-addon-id="earthing-test">
-                  <div class="sq-addon-checkbox">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  </div>
-                  <div class="sq-addon-details">
-                    <div class="sq-addon-title">Precision Earth Electrode & Surge Test</div>
-                    <div style="font-size: 0.8rem; color: var(--civitas-text-muted);">Digital resistance testing to protect inverters and appliances</div>
-                  </div>
-                  <div class="sq-addon-price">+GH₵ 120</div>
-                </div>
-              </div>
-
-              <!-- Repairs No Add-ons Notice -->
-              <div id="sqRepairsAddonsNotice" style="display: none;">
-                <div class="sq-notice-box" style="margin-top: 0;">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                  <div>
-                    <strong>All-inclusive repair scope:</strong> Spare parts and technical add-ons for repairs are specified following your technician's diagnostic site audit.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- PANE 5: Instant Estimate & Conversion -->
-            <div class="sq-pane" id="sqPane5" role="tabpanel" aria-labelledby="sqStepBtn5">
-              <div class="sq-pane-header">
-                <h3 class="sq-pane-title">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                  Step 5: Your Indicative Service Estimate
-                </h3>
-                <p class="sq-pane-desc">Review your selected requirements, estimated cost, and request your formal quotation.</p>
-              </div>
-
-              <!-- Price Hero Banner -->
-              <div class="sq-price-hero-box" id="sqPriceHeroBox">
-                <span class="sq-hero-caption">CIVITAS INDICATIVE ESTIMATE</span>
-                <div class="sq-hero-amount" id="sqHeroPriceDisplay">
-                  <span class="sq-currency">GH₵</span>
-                  <span id="sqHeroAmountNum">0</span>
-                </div>
-                <span class="sq-hero-status-tag" id="sqHeroStatusTag">Indicative Estimate</span>
-              </div>
-
-              <!-- Breakdown Card -->
-              <div class="sq-estimate-breakdown-card">
-                <div class="sq-estimate-rows">
-                  <div class="sq-estimate-row">
-                    <span class="sq-row-label">Selected Service:</span>
-                    <span class="sq-row-value" id="sqResService">Standard Property Cleaning</span>
-                  </div>
-                  <div class="sq-estimate-row">
-                    <span class="sq-row-label">Property Details:</span>
-                    <span class="sq-row-value" id="sqResProperty">3 Beds, 3 Baths (Villa)</span>
-                  </div>
-                  <div class="sq-estimate-row">
-                    <span class="sq-row-label">Location Zone:</span>
-                    <span class="sq-row-value" id="sqResLocation">Core Accra (Base Logistics)</span>
-                  </div>
-                  <div class="sq-estimate-row">
-                    <span class="sq-row-label">Selected Add-ons:</span>
-                    <span class="sq-row-value" id="sqResAddons">None</span>
-                  </div>
-                </div>
-
-                <div class="sq-disclaimer">
-                  “This is an indicative estimate, not a final quotation. Final pricing is subject to confirmation of service scope, property condition, accessibility, materials and applicable taxes.”
-                </div>
-
-                <!-- Primary Conversion Actions -->
-                <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                  <a href="#" id="sqFinalWhatsAppBtn" target="_blank" rel="noopener noreferrer" class="sq-btn sq-btn-whatsapp">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.303-.058.116-.087.188-.173.289l-.26.303c-.087.087-.177.181-.076.355.101.174.449.741.964 1.2.662.591 1.221.774 1.394.861.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
-                    <span>Request My Quotation on WhatsApp</span>
-                  </a>
-
-                  <div style="display: flex; gap: 0.75rem;">
-                    <button type="button" class="sq-btn sq-btn-secondary" id="sqCopyQuoteBtn" style="flex: 1; font-size: 0.86rem; padding: 0.65rem;">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                      Copy Quote Summary
-                    </button>
-                    <button type="button" class="sq-btn sq-btn-secondary" id="sqRestartBtn" style="flex: 1; font-size: 0.86rem; padding: 0.65rem;">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
-                      Start New Estimate
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Wizard Navigation Footer -->
-            <div class="sq-nav-footer">
-              <button type="button" class="sq-btn sq-btn-secondary" id="sqNavBackBtn" disabled>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back
-              </button>
-              
-              <button type="button" class="sq-btn sq-btn-primary" id="sqNavNextBtn">
-                <span>Continue to Property Details</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
-            </div>
-          </div>
-
-          <!-- Right Column: Live Indicative Scorecard & Trust Panel -->
-          <div class="smartquote-sidebar">
-            <div>
-              <div class="sq-sidebar-header">
-                <span class="sq-sidebar-eyebrow">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                  Civitas SmartQuote™ Live
-                </span>
-                <h4 class="sq-sidebar-title">Estimated Scope</h4>
-                <p style="font-size: 0.8rem; color: #B5D2C8; margin: 0;">Values update automatically as you adjust parameters.</p>
-              </div>
-
-              <!-- Live Indicative Total Card -->
-              <div class="sq-sidebar-price-card">
-                <span class="sq-live-price-label">Indicative Service Rate</span>
-                <div class="sq-live-price-num" id="sqLivePriceDisplay">
-                  <span class="sq-c-symbol">GH₵</span>
-                  <span id="sqLiveAmountNum">570</span>
-                </div>
-                <span style="font-size: 0.72rem; color: #B2D0C6; display: block; margin-top: 0.2rem;" id="sqLivePriceSubtext">Includes labour, materials & equipment</span>
-              </div>
-
-              <!-- Live Configuration Summary List -->
-              <ul class="sq-sidebar-selection-list">
-                <li class="sq-sidebar-item">
-                  <span class="sq-sidebar-item-label">Service:</span>
-                  <span class="sq-sidebar-item-val" id="sqLiveServiceLabel">Standard Cleaning</span>
-                </li>
-                <li class="sq-sidebar-item">
-                  <span class="sq-sidebar-item-label">Property:</span>
-                  <span class="sq-sidebar-item-val" id="sqLivePropertyLabel">3 Bed, 3 Bath Villa</span>
-                </li>
-                <li class="sq-sidebar-item">
-                  <span class="sq-sidebar-item-label">Location:</span>
-                  <span class="sq-sidebar-item-val" id="sqLiveLocationLabel">Core Accra</span>
-                </li>
-                <li class="sq-sidebar-item">
-                  <span class="sq-sidebar-item-label">Add-ons:</span>
-                  <span class="sq-sidebar-item-val" id="sqLiveAddonsLabel">0 selected</span>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Civitas Quality Guarantees -->
-            <div>
-              <div class="sq-sidebar-trust-box">
-                <div class="sq-trust-line">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span>Background-checked Ghanaian technicians</span>
-                </div>
-                <div class="sq-trust-line">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span>British-standard equipment & HEPA filtration</span>
-                </div>
-                <div class="sq-trust-line">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span>Transparent itemised scope before invoicing</span>
-                </div>
-              </div>
-
-              <div style="margin-top: 1.25rem;">
-                <a href="#" id="sqSidebarWhatsAppBtn" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-lg" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; padding: 0.85rem 1.25rem;">
-                  <span>Direct WhatsApp Enquiry</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 6: The Civitas 4-Point Gold Standard Guarantee -->
-    <section class="section bg-white" id="guarantees">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow eyebrow-terracotta">Zero Headaches. Absolute Peace of Mind.</span>
-          <h2>The Civitas 4-Point Gold Standard Guarantee</h2>
-          <p class="muted">We built Civitas to eliminate the four most frustrating experiences in property management across Ghana.</p>
-        </div>
-
-        <div class="guarantee-grid">
-          <div class="guarantee-card">
-            <div class="guarantee-icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-            </div>
-            <h4>100% Vetted & Badged</h4>
-            <p>No arbitrary street artisans. Every Civitas technician is identity-verified, background-checked, and tested for technical competence before entering your property.</p>
-          </div>
-
-          <div class="guarantee-card">
-            <div class="guarantee-icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-            </div>
-            <h4>Fixed Upfront Scope</h4>
-            <p>No sudden price inflations or surprise extra invoices mid-job. Every assignment has a pre-agreed digital scope and transparent pricing before work commences.</p>
-          </div>
-
-          <div class="guarantee-card">
-            <div class="guarantee-icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
-            </div>
-            <h4>Photographic Sign-Off</h4>
-            <p>Work is completed against structured checklists. You receive timestamped before-and-after photographic documentation directly on your phone or email.</p>
-          </div>
-
-          <div class="guarantee-card">
-            <div class="guarantee-icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            </div>
-            <h4>Direct WhatsApp Concierge</h4>
-            <p>No running around or chasing unresponsive contractors. You have a dedicated customer service liaison coordinating schedules and resolving inquiries instantly.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 7: How Civitas Works & Corridor Coverage -->
-    <section class="section bg-ivory" id="how-it-works">
+    <!-- Section 5: How Civitas Works & Interactive Greater Accra Corridor Console -->
+    <section class="section bg-white" id="how-it-works">
       <div class="container">
         <div class="section-header text-center">
           <span class="eyebrow eyebrow-emerald">Predictable Workflow</span>
           <h2>How Civitas Works</h2>
-          <p class="muted">No guesswork, surprise bills, or unverified work. A straightforward 3-step experience from initial enquiry to completed service.</p>
+          <p class="muted">A straightforward 3-step experience from instant quote to photo-verified completion.</p>
         </div>
 
-        <div class="timeline-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-          <div class="timeline-step">
-            <div class="step-number">01</div>
-            <h4>Tell Us What You Need</h4>
-            <p>Share your required service, property location, and preferred date via WhatsApp or our instant quote form.</p>
+        <div class="civ-architectural-steps">
+          <div class="civ-arch-step-card">
+            <div class="civ-arch-step-top">
+              <span class="civ-arch-step-num">01</span>
+              <span class="civ-arch-step-tag">Instant Estimate</span>
+            </div>
+            <h4>Build Your Quote or Enquire</h4>
+            <p>Select your service and property size in Smart Quote or message us on WhatsApp with your location and preferred date.</p>
           </div>
 
-          <div class="timeline-step">
-            <div class="step-number">02</div>
-            <h4>Receive a Fixed Digital Scope</h4>
-            <p>We review your requirements and provide a transparent, upfront quotation based on clear, itemized deliverables.</p>
+          <div class="civ-arch-step-card">
+            <div class="civ-arch-step-top">
+              <span class="civ-arch-step-num">02</span>
+              <span class="civ-arch-step-tag">Written Agreement</span>
+            </div>
+            <h4>Confirm Scope in Writing</h4>
+            <p>Review your itemised quotation showing exactly what is included, what is excluded, and the total price before work begins.</p>
           </div>
 
-          <div class="timeline-step">
-            <div class="step-number">03</div>
+          <div class="civ-arch-step-card">
+            <div class="civ-arch-step-top">
+              <span class="civ-arch-step-num">03</span>
+              <span class="civ-arch-step-tag">Checklist &amp; Photos</span>
+            </div>
             <h4>Delivered &amp; Photo-Verified</h4>
-            <p>Assigned qualified personnel complete the approved work, and you receive timestamped photo documentation on WhatsApp.</p>
+            <p>Our team completes the checklist review and sends dated photos to your phone. Balance is paid on satisfactory completion.</p>
           </div>
         </div>
 
-        <!-- Priority Coverage Checker Ribbon -->
-        <div style="margin-top: 4rem; padding: 2.5rem; background: #FFFFFF; border: 1px solid var(--civitas-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);">
-          <div class="section-header text-center" style="margin-bottom: 1.5rem;">
-            <span class="eyebrow eyebrow-terracotta">Greater Accra &amp; Tema Corridor</span>
-            <h3 style="font-size: 1.75rem; margin-top: 0.5rem;">Priority Field Coverage &amp; Response</h3>
-            <p class="muted" style="font-size: 0.95rem;">Select your neighborhood to view active mobile coverage and rapid response windows:</p>
+        <!-- Luxury Dark-Emerald Interactive Corridor Console -->
+        <div class="civ-corridor-console">
+          <div class="civ-corridor-header">
+            <div>
+              <span class="eyebrow eyebrow-white" style="margin-bottom: 0.65rem;">Greater Accra &amp; Tema</span>
+              <h3>Where We Operate</h3>
+              <p>Ordinary cleaning supplies, tools, and local transport within Accra and Tema are included in our cleaning prices:</p>
+            </div>
+            <a href="/service-areas/" class="btn btn-outline-white btn-sm">View Full Service Areas &rarr;</a>
           </div>
 
           <div class="suburb-chips-grid">
@@ -1364,23 +670,19 @@
             <button type="button" class="suburb-chip" data-suburb="Tema Comm 1–25">Tema Communities 1–25</button>
           </div>
 
-          <div class="text-center" style="margin-top: 1.5rem;">
+          <div class="civ-corridor-readout">
             <div class="suburb-status-banner">
               <span class="pulse-dot"></span>
               <strong id="activeSuburbName">Airport Residential</strong>:
-              <span id="activeSuburbDispatch" style="color: var(--civitas-emerald);">Average Rapid Dispatch: 15–30 mins &bull; Zone A (Central Core)</span>
+              <span id="activeSuburbDispatch">Scheduled Coverage &bull; Zone A (Local transport included in cleaning prices)</span>
             </div>
-          </div>
-
-          <div style="text-align: center; margin-top: 1.75rem;">
-            <a href="/service-areas/" class="btn btn-outline-primary btn-sm">Explore All Suburbs &amp; Maps &rarr;</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Section 8: FAQ Accordion -->
-    <section class="section bg-white">
+    <!-- Section 7: FAQ Accordion -->
+    <section class="section bg-ivory">
       <div class="container container-narrow">
         <div class="section-header text-center">
           <span class="eyebrow">Common Inquiries</span>
@@ -1425,7 +727,7 @@
               <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
             </button>
             <div class="faq-answer">
-              <p>Yes. <strong>Civitas Care</strong> provides monthly preventive care plans starting at GH₵350/month, and <strong>Civitas Property Watch</strong> provides scheduled monthly condition reports designed for ongoing property upkeep.</p>
+              <p>Yes. <strong>Civitas Care</strong> provides monthly preventive care plans (<span data-price-token="careEssential-from"></span> for Care Essential, <span data-price-token="carePlus-from"></span> for Care Plus), and <strong>Civitas Property Watch</strong> provides scheduled monthly visual checks with photos (<span data-price-token="watchMonthly-from"></span>). Note that Property Watch is a scheduled visual check with photos, not security, guarding, or monitoring.</p>
             </div>
           </div>
 
@@ -1452,25 +754,28 @@
       </div>
     </section>
 
-    <!-- Section 9: Final Conversion CTA -->
-    <section class="section bg-forest">
-      <div class="container text-center" style="max-width: 820px;">
-        <span class="eyebrow eyebrow-white">Start With a Simple Conversation</span>
-        <h2 style="color: var(--civitas-white);">Give Your Property the Attention It Deserves.</h2>
-        <p class="lead" style="color: #E2ECE7; margin-bottom: 1.5rem;">A cleaner space. A repair properly coordinated. A property condition report. A practical maintenance plan.</p>
-        <p style="color: #B5C9C0; margin-bottom: 2.5rem;">Whatever your property needs, the first step is a conversation. Connect directly with our team on WhatsApp to discuss your requirements, request pricing, or confirm service availability.</p>
-        
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
-          <button class="btn btn-accent btn-lg btn-icon-right" data-open-quote data-mode-cta="primary">
-            Request a Quote on WhatsApp
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </button>
-          <a href="/contact/" class="btn btn-outline-white btn-lg">Complete Enquiry Form</a>
-        </div>
+    <!-- Section 8: Iconic Architectural Finale CTA -->
+    <section class="civ-grand-finale-section">
+      <div class="container">
+        <div class="civ-finale-monolith">
+          <span class="eyebrow eyebrow-white">Start With a Simple Conversation</span>
+          <h2>Give Your Property the <span class="civ-vault-title-accent">Attention It Deserves.</span></h2>
+          <p class="lead" style="color: #E2ECE7; margin-bottom: 1rem;">A cleaner space. A repair properly coordinated. A property condition report. A practical maintenance plan.</p>
+          <p style="color: #B5C9C0; max-width: 680px; margin: 0 auto 2.5rem;">Whatever your property needs, the first step is a conversation. Build an itemised Smart Quote in about a minute or connect directly with our team on WhatsApp.</p>
+          
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+            <a href="/get-a-quote/" class="btn btn-accent btn-lg btn-icon-right">
+              Build Your Smart Quote
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <button class="btn btn-outline-white btn-lg" data-open-quote data-mode-cta="primary">
+              Request a Quote on WhatsApp
+            </button>
+            <a href="/contact/" class="btn btn-outline-white btn-lg">Complete Enquiry Form</a>
+          </div>
 
-        <p class="muted" style="margin-top: 2rem; font-size: 0.85rem; color: #8BA89D;">
-          *For the planned January 2027 launch, customers may register their interest or enquire about advance bookings. Service availability is subject to location and personnel confirmation.*
-        </p>
+          <p class="muted" style="margin-top: 2.25rem; font-size: 0.85rem; color: #9FD0C0; margin-bottom: 0;" data-price-token="version-line"></p>
+        </div>
       </div>
     </section>
 
