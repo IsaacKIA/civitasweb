@@ -8179,6 +8179,134 @@ section.bg-forest {
   border-top: 1px solid rgba(212, 175, 55, 0.35);
 }
 
+/* Mobile Responsive Price Cards for Part 1 (Hidden on Desktop, Shown < 640px) */
+.civ-mobile-price-stack {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.15rem;
+}
+
+.civ-mobile-price-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF8F4 100%);
+  border: 1px solid rgba(7, 85, 69, 0.16);
+  border-radius: 18px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 26px rgba(4, 37, 31, 0.05);
+}
+
+.civ-mpc-head {
+  margin-bottom: 0.9rem;
+}
+
+.civ-mpc-head .civ-service-title {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #04251F;
+  margin-bottom: 0.25rem;
+}
+
+.civ-mpc-head .civ-service-desc {
+  font-size: 0.84rem;
+  color: #475A53;
+  line-height: 1.5;
+}
+
+.civ-mpc-tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.55rem;
+  margin-bottom: 0.9rem;
+}
+
+.civ-mpc-tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.65rem 0.35rem;
+  border-radius: 12px;
+  background: #F4F8F6;
+  border: 1px solid rgba(7, 85, 69, 0.14);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.civ-mpc-tier:hover,
+.civ-mpc-tier:active {
+  background: #075545;
+  border-color: #075545;
+}
+
+.civ-mpc-bed {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #4A5D56;
+  margin-bottom: 0.2rem;
+}
+
+.civ-mpc-val {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #04251F;
+  font-variant-numeric: tabular-nums;
+}
+
+.civ-mpc-tier:hover .civ-mpc-bed,
+.civ-mpc-tier:hover .civ-mpc-val,
+.civ-mpc-tier:active .civ-mpc-bed,
+.civ-mpc-tier:active .civ-mpc-val {
+  color: #FFE89E;
+}
+
+.civ-mpc-cta {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+}
+
+/* Luxury Upgrade for Mobile Collapsible Scope Cards (Part 2) */
+.civ-mobile-scope-card {
+  border: 1px solid rgba(7, 85, 69, 0.16);
+  border-radius: 16px;
+  background: #FFFFFF;
+  box-shadow: 0 8px 22px rgba(4, 37, 31, 0.04);
+  overflow: hidden;
+}
+
+.civ-mobile-scope-card summary {
+  padding: 1rem 1.15rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F7FAF8 100%);
+  color: #04251F;
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.civ-mobile-scope-card[open] summary {
+  background: #04251F;
+  color: #FFE89E;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.civ-mobile-scope-card .civ-details-chevron {
+  transition: transform 0.22s ease;
+  font-size: 0.85rem;
+}
+
+.civ-mobile-scope-card[open] .civ-details-chevron {
+  transform: rotate(180deg);
+  color: #FFE89E;
+}
+
 @media (max-width: 960px) {
   .civ-vault-grid,
   .civ-architectural-steps,
@@ -8200,21 +8328,158 @@ section.bg-forest {
 }
 
 @media (max-width: 640px) {
+  /* 1. Smart Quote: All 5 Steps on One Symmetrical Mobile Bar */
   .sq2-step-tabs {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.25rem;
+    padding: 0.35rem;
+    border-radius: 14px;
   }
+  .sq2-step-tab {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 0.22rem;
+    padding: 0.5rem 0.15rem;
+    font-size: 0.66rem;
+    border-radius: 10px;
+    line-height: 1.15;
+  }
+  .sq2-step-num {
+    width: 22px;
+    height: 22px;
+    font-size: 0.68rem;
+  }
+
+  /* 2. Smart Quote: Balanced 2-Column Touch Grid for Bedroom & Bathroom Pills */
+  .sq2-pill-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.55rem;
+  }
+  .sq2-pill {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 0.7rem 0.65rem;
+    font-size: 0.86rem;
+  }
+
+  /* 3. Smart Quote: Step Panel, Add-on Rows & Certificate Mobile Layout */
+  .sq2-step-panel {
+    padding: 1.35rem 1.15rem;
+    border-radius: 18px;
+  }
+  .sq2-addon-row {
+    flex-wrap: wrap;
+    padding: 0.75rem 0.85rem;
+  }
+  .sq2-addon-stepper {
+    margin-left: auto;
+  }
+  .sq2-catalogue-strip {
+    padding: 1.25rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .sq2-catalogue-strip .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* 4. Service Portfolio: Switch Part 1 from 5-Col Table to Mobile Price Cards */
+  .civ-desktop-price-table {
+    display: none;
+  }
+  .civ-mobile-price-stack {
+    display: flex;
+  }
+  .civ-sheet-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+  .civ-sheet-header .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* 5. Service Portfolio: Part 3 Tables Compact Zero-Overflow Layout */
+  .civ-price-table th,
+  .civ-price-table td {
+    padding: 0.75rem 0.65rem;
+    font-size: 0.85rem;
+  }
+  .civ-num-cell {
+    white-space: normal;
+    text-align: right;
+    min-width: 105px;
+  }
+
+  /* 6. Service Portfolio: Feature Rows & Video Reels on Mobile */
+  .service-feature-row {
+    gap: 1.75rem;
+    margin-bottom: 3.25rem;
+  }
+  .service-feature-content .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .hero-video-controller {
+    bottom: 0.75rem !important;
+    right: 0.75rem !important;
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.72rem !important;
+  }
+
   .civ-pricing-sheet,
   .civ-home-price-card,
   .civ-how-we-price-strip,
   .civ-vault-card,
   .civ-corridor-console,
   .sq2-cert-banner,
-  .sq2-cert-body,
-  .sq2-catalogue-strip {
+  .sq2-cert-body {
     padding: 1.25rem;
   }
   .civ-vault-concierge-bar {
     padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Full-width thumb-friendly step buttons on compact phones */
+  .sq2-step-nav {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+  .sq2-step-nav .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .sq2-cert-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+  .sq2-cert-total-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+  .sq2-total-amount {
+    font-size: clamp(1.75rem, 8vw, 2.15rem);
+  }
+  .civ-mpc-tiers {
+    gap: 0.4rem;
+  }
+  .civ-mpc-val {
+    font-size: 0.84rem;
   }
 }
 

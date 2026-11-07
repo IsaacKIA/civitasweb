@@ -87,6 +87,40 @@ export function renderFullPricingSection(container: HTMLElement): void {
     })
     .join("");
 
+  const mobilePriceCardsHtml = cleaningKeys
+    .map((key) => {
+      const s = PRICE_LIST.cleaning[key];
+      return `
+        <article class="civ-mobile-price-card">
+          <div class="civ-mpc-top">
+            <h4 class="civ-mpc-title">${s.label}</h4>
+            <p class="civ-mpc-desc">${SERVICE_DESCRIPTIONS[key]}</p>
+          </div>
+          <div class="civ-mpc-tiers" role="group" aria-label="${s.label} prices by bedroom count">
+            <a href="/get-a-quote/?service=${key}&bedrooms=1" class="civ-mpc-tier">
+              <span class="civ-mpc-bed">1-Bed</span>
+              <span class="civ-mpc-from">From</span>
+              <strong class="civ-mpc-val">${formatPrice(s["1"])}</strong>
+            </a>
+            <a href="/get-a-quote/?service=${key}&bedrooms=2" class="civ-mpc-tier">
+              <span class="civ-mpc-bed">2-Bed</span>
+              <span class="civ-mpc-from">From</span>
+              <strong class="civ-mpc-val">${formatPrice(s["2"])}</strong>
+            </a>
+            <a href="/get-a-quote/?service=${key}&bedrooms=3" class="civ-mpc-tier">
+              <span class="civ-mpc-bed">3-Bed</span>
+              <span class="civ-mpc-from">From</span>
+              <strong class="civ-mpc-val">${formatPrice(s["3"])}</strong>
+            </a>
+          </div>
+          <a href="/get-a-quote/?service=${key}" class="civ-mpc-cta">
+            Build ${s.label} Quote &rarr;
+          </a>
+        </article>
+      `;
+    })
+    .join("");
+
   const scopeTableRowsHtml = SCOPE_MATRIX.map((row) => {
     const cell = (included: boolean) =>
       included
@@ -177,7 +211,8 @@ export function renderFullPricingSection(container: HTMLElement): void {
           <a href="/get-a-quote/" class="btn btn-primary btn-sm">Open Smart Quote &rarr;</a>
         </div>
 
-        <div class="civ-table-scroll" role="region" aria-labelledby="cleaningPriceTableCap" tabindex="0">
+        <!-- Desktop/Tablet Accessible Table -->
+        <div class="civ-table-scroll civ-desktop-price-table" role="region" aria-labelledby="cleaningPriceTableCap" tabindex="0">
           <table class="civ-price-table">
             <caption id="cleaningPriceTableCap" class="sr-only">Cleaning starting prices by service and bedroom size in GH₵</caption>
             <thead>
@@ -193,6 +228,11 @@ export function renderFullPricingSection(container: HTMLElement): void {
               ${priceRowsHtml}
             </tbody>
           </table>
+        </div>
+
+        <!-- Mobile Responsive Price Cards (Zero Horizontal Scroll) -->
+        <div class="civ-mobile-price-stack" aria-label="Cleaning starting prices by service">
+          ${mobilePriceCardsHtml}
         </div>
 
         <div class="civ-size-footnote">
@@ -329,7 +369,7 @@ export function renderFullPricingSection(container: HTMLElement): void {
 
       <!-- Part 4: How We Set Our Prices -->
       <div class="civ-how-we-price-strip">
-        <div class="civ-how-strip-header">
+        <div class="civ-how-strip-head">
           <h4>${HOW_WE_SET_PRICES.heading}</h4>
           <span class="civ-version-pill" data-price-token="version-line">${PRICE_VERSION_LINE}</span>
         </div>
