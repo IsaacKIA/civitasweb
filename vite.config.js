@@ -39,6 +39,7 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact/index.html'),
         getAQuote: resolve(__dirname, 'get-a-quote/index.html'),
         adminQuotes: resolve(__dirname, 'admin/quotes/index.html'),
+        ops: resolve(__dirname, 'ops/index.html'),
         privacy: resolve(__dirname, 'privacy/index.html'),
         terms: resolve(__dirname, 'terms/index.html'),
         notFound: resolve(__dirname, '404.html')

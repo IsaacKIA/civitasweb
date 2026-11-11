@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test src/config/pricing.test.ts src/lib/quote.test.ts"
+    "test": "node --test src/config/pricing.test.ts src/lib/quote.test.ts src/ops/ops.test.ts"
   },
   "devDependencies": {
     "sharp": "^0.35.5",
